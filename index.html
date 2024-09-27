@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contadores de Relacionamento</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #000; /* Fundo preto para tema espaço */
+            color: #ffffff; /* Texto branco para contraste */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2; /* Garantir que o conteúdo esteja acima das estrelas */
+        }
+
+        .counter, .second-counter, .text-content {
+            font-family: 'Dancing Script', cursive;
+            background-color: rgba(255, 255, 255, 0.8); /* Fundo branco semi-transparente */
+            color: #333; /* Cor do texto mais escura para contraste com o fundo branco */
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            margin: 20px;
+            text-align: center;
+            z-index: 2; /* Manter acima das estrelas */
+        }
+
+        .counter, .second-counter {
+            font-size: 22px;
+        }
+
+        .text-content {
+            max-width: 800px;
+            display: none;
+            text-align: justify;
+            font-size: 18px;
+        }
+
+        .photo-frame {
+            float: left;
+            border: 3px solid #ffffff;
+            border-radius: 8px;
+            width: 30%;
+            max-width: 150px;
+            height: auto;
+            margin-right: 20px;
+        }
+
+        .photo-frame img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        #stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; /* Estrelas devem ficar atrás do conteúdo */
+            pointer-events: none;
+        }
+
+        .star, .shooting-star, .extra-star {
+            position: absolute;
+            border-radius: 50%;
+            background: white;
+        } 
+
+        .star {
+            width: 2px;
+            height: 2px;
+            animation: twinkling 3s infinite;
+        }
+
+        .shooting-star {
+            width: 3px;
+            height: 3px;
+            animation: shooting 1s ease-in-out infinite;
+            background: linear-gradient(white, transparent); /* Adiciona cauda */
+        }
+
+        .extra-star {
+            width: 2px;
+            height: 2px;
+            background: white;
+            animation: spread 1s forwards;
+        }
+
+        @keyframes twinkling {
+            0%, 100% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes shooting {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(-100vw, 100vh); /* Movimento diagonal */
+            }
+        }
+
+        @keyframes spread {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Efeito para a mudança de cor do texto */
+        .color1 { color: #f7e6e6; }
+        .color2 { color: #ffcc66; }
+        .color3 { color: #99ccff; }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="counter" id="counter"></div>
+        <div class="second-counter" id="second-counter"></div>
+        <div class="text-content">
+            <div class="photo-frame">
+                <img src="photo.jpg" alt="Sua foto aqui">
+            </div>
+            <div class="text">Eu te amo infinitamente, obrigado por ser essa mulher incrível.</div>
+            <div class="text-below">Obrigado também por ser minha luz e por me tranquilizar de todas as situações complicadas em que eu acabei me estressando. Você é importante pra mim ❤️.</div>
+        </div>
+    </div>
+
+    <div id="stars"></div>
+
+    <script>
+        const relationshipStart = new Date('2024-08-22T21:20:00');
+        const oneMonthMark = new Date('2024-09-22T21:20:00');
+        const colors = ['color1', 'color2', 'color3']; // Cores para mudar o texto
+
+        function updateCounters() {
+            const now = new Date();
+            const timeDiff = oneMonthMark - now;
+            const seconds = Math.floor(timeDiff / 1000);
+            const days = Math.floor(seconds / (60 * 60 * 24));
+            const hours = Math.floor((seconds % (60 * 60 * 24)) / (60 * 60));
+            const minutes = Math.floor((seconds % (60 * 60)) / 60);
+            const remainingSeconds = seconds % 60;
+
+            if (timeDiff > 0) {
+                document.getElementById('counter').innerText = `${days} dias, ${hours} horas, ${minutes} minutos e ${remainingSeconds} segundos`;
+            } else {
+                const nowDate = new Date();
+                const relMonths = nowDate.getMonth() - relationshipStart.getMonth() + (nowDate.getFullYear() - relationshipStart.getFullYear()) * 12;
+                const relDays = nowDate.getDate() - relationshipStart.getDate();
+                const relHours = nowDate.getHours() - relationshipStart.getHours();
+                const relMinutes = nowDate.getMinutes() - relationshipStart.getMinutes();
+                const relSeconds = nowDate.getSeconds() - relationshipStart.getSeconds();
+                document.getElementById('second-counter').innerText = `${relMonths} meses, ${relDays} dias, ${relHours} horas, ${relMinutes} minutos e ${relSeconds} segundos`;
+                document.getElementById('counter').innerText = `Nosso ${relMonths}º mês!`;
+                document.querySelector('.text-content').style.display = 'block';
+            }
+        }
+
+        function createStars() {
+            const starContainer = document.getElementById('stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.top = `${Math.random() * 100}vh`;
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                starContainer.appendChild(star);
+            }
+        }
+
+        function createShootingStars() {
+            const starContainer = document.getElementById('stars');
+            for (let i = 0; i < 5; i++) {
+                const shootingStar = document.createElement('div');
+                shootingStar.classList.add('shooting-star');
+                shootingStar.style.top = `${Math.random() * 100}vh`;
+                shootingStar.style.left = `${Math.random() * 100}vw`;
+                shootingStar.style.animationDelay = `${Math.random() * 5}s`;
+                starContainer.appendChild(shootingStar);
+            }
+        }
+
+        function changeTextColor() {
+            const textContent = document.querySelector('.text-content');
+            textContent.classList.remove(...colors);
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            textContent.classList.add(randomColor);
+        }
+
+        function createClickStars(event) {
+            const starContainer = document.getElementById('stars');
+            for (let i = 0; i < 50; i++) {
+                const extraStar = document.createElement('div');
+                extraStar.classList.add('extra-star');
+                extraStar.style.top = `${event.clientY}px`;
+                extraStar.style.left = `${event.clientX}px`;
+                extraStar.style.animationDelay = `${Math.random() * 0.5}s`;
+                extraStar.style.transform = `scale(${Math.random() * 1.5})`;
+                starContainer.appendChild(extraStar);
+            }
+
+            setTimeout(() => {
+                const extraStars = document.querySelectorAll('.extra-star');
+                extraStars.forEach(star => star.remove());
+                createStars(); // Volta para o número normal de estrelas
+            }, 4000);
+        }
+
+        document.body.addEventListener('click', (event) => {
+            changeTextColor();
+  createClickStars(event);
+        });
+
+        // Cria as estrelas e estrelas cadentes ao carregar a página
+        createStars();
+        createShootingStars();
+        setInterval(updateCounters, 1000); // Atualiza os contadores a cada segundo
+    </script>
+</body>
+</html>
