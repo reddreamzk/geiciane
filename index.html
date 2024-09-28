@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Animation - Sequential and Responsive</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: white;
+        }
+
+        svg {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .image {
+            transition: all 1s ease;
+            cursor: pointer;
+            animation: slideImages 20s linear infinite; /* Animação para deslocamento horizontal */
+        }
+
+        .image:hover {
+            transition: all 1s ease;
+            filter: none;
+            z-index: 100;
+        }
+
+        /* Animação de deslocamento horizontal */
+        @keyframes slideImages {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* Adaptando as imagens para dispositivos móveis */
+        @media (max-width: 768px) {
+            svg {
+                width: 100vw;
+                height: 80vh;
+            }
+            .image {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+<svg viewBox="0 0 500 500" xmlns='http://www.w3.org/2000/svg'>
+    <filter id='noise' x='0%' y='0%' width='100%' height='100%'>
+        <feTurbulence baseFrequency="0.02 0.6" result="NOISE" numOctaves="2" />
+        <feDisplacementMap in="SourceGraphic" in2="NOISE" scale="20" xChannelSelector="R" yChannelSelector="R"></feDisplacementMap>
+    </filter>
+
+    <!-- Imagens com filtro de ruído e animação sequencial -->
+    <image class="image one" xlink:href="https://samrithasudhagar.github.io/assets/IMG_20201020_154608.jpg" x="-60" y="0" width="300px" height="300px" filter="url(#noise)"></image>
+    <image class="image two" xlink:href="https://samrithasudhagar.github.io/assets/1626262255012__01.jpg" x="450" y="0" width="300px" height="300px" filter="url(#noise)"></image>
+    <image class="image three" xlink:href="https://samrithasudhagar.github.io/assets/IMG_20200911_121501__01.jpg" x="180" y="240" width="300px" height="300px" filter="url(#noise)"></image>
+    <image class="image four" xlink:href="https://samrithasudhagar.github.io/assets/1624465339754.jpg" x="-300" y="240" width="300px" height="300px" filter="url(#noise)"></image>
+    <image class="image five" xlink:href="https://samrithasudhagar.github.io/assets/1624176647257.jpg" x="470" y="260" width="300px" height="300px" filter="url(#noise)"></image>
+    <image class="image six" xlink:href="https://samrithasudhagar.github.io/assets/IMG_20201031_165610.jpg" x="-300" y="-30" width="300px" height="260px" filter="url(#noise)"></image>
+    <image class="image seven" xlink:href="https://samrithasudhagar.github.io/assets/IMG_20210615_152626.jpg" x="190" y="-30" width="300px" height="260px" filter="url(#noise)"></image>
+    <image class="image eight" xlink:href="https://samrithasudhagar.github.io/assets/1624093534547.jpg" x="-40" y="320" width="200px" height="260px" filter="url(#noise)"></image>
+</svg>
+</body>
+</html>
