@@ -20,8 +20,9 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 120%;
+      height: 100%; /* Limitar à viewport */
       transform: rotate(-45deg);
+      z-index: 1; /* Garantir que as estrelas estejam sobre a camada correta */
     }
 
     .star {
@@ -41,10 +42,11 @@
       height: var(--star-tail-height);
       background: linear-gradient(45deg, var(--star-color), transparent);
       border-radius: 50%;
-      filter: drop-shadow(0 0 6px var(--star-color));
+      background-color: var(--star-color); /* Substituir filter por background simples */
       transform: translate3d(104em, 0, 0);
       animation: fall var(--fall-duration) var(--fall-delay) linear infinite,
         tail-fade var(--tail-fade-duration) var(--fall-delay) ease-out infinite;
+      will-change: transform, opacity; /* Melhorar o desempenho */
     }
 
     .star::before,
@@ -102,7 +104,8 @@
     /* Gerando múltiplas estrelas */
     @media screen and (max-width: 750px) {
       .star {
-        animation: fall var(--fall-duration) var(--fall-delay) linear infinite;
+        animation: none; /* Desativar animações complexas em dispositivos móveis */
+        opacity: 0.5;
       }
     }
 
@@ -232,15 +235,6 @@
 <body>
 
   <div class="stars">
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
     <div class="star"></div>
     <div class="star"></div>
     <div class="star"></div>
