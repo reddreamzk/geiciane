@@ -1,262 +1,243 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Star Animation</title>
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      background: radial-gradient(ellipse at bottom, #0d1d31 0%, #0c0d13 100%);
-      overflow: hidden;
-      margin: 0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contadores de Relacionamento</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #000; /* Fundo preto para tema espaço */
+            color: #ffffff; /* Texto branco para contraste */
+            position: relative;
+            overflow: hidden;
+        }
 
-    .stars {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%; /* Limitar à viewport */
-      transform: rotate(-45deg);
-      z-index: 1; /* Garantir que as estrelas estejam sobre a camada correta */
-    }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2; /* Garantir que o conteúdo esteja acima das estrelas */
+        }
 
-    .star {
-      --star-color: #fff;
-      --star-tail-length: 6em;
-      --star-tail-height: 2px;
-      --star-width: calc(var(--star-tail-length) / 6);
-      --fall-duration: 9s;
-      --tail-fade-duration: var(--fall-duration);
-      --top-offset: 0;
-      --fall-delay: 0s;
+        .counter, .second-counter, .text-content {
+            font-family: 'Dancing Script', cursive;
+            background-color: rgba(255, 255, 255, 0.8); /* Fundo branco semi-transparente */
+            color: #333; /* Cor do texto mais escura para contraste com o fundo branco */
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            margin: 20px;
+            text-align: center;
+            z-index: 2; /* Manter acima das estrelas */
+        }
 
-      position: absolute;
-      top: var(--top-offset);
-      left: 0;
-      width: var(--star-tail-length);
-      height: var(--star-tail-height);
-      background: linear-gradient(45deg, var(--star-color), transparent);
-      border-radius: 50%;
-      background-color: var(--star-color); /* Substituir filter por background simples */
-      transform: translate3d(104em, 0, 0);
-      animation: fall var(--fall-duration) var(--fall-delay) linear infinite,
-        tail-fade var(--tail-fade-duration) var(--fall-delay) ease-out infinite;
-      will-change: transform, opacity; /* Melhorar o desempenho */
-    }
+        .counter, .second-counter {
+            font-size: 22px;
+        }
 
-    .star::before,
-    .star::after {
-      position: absolute;
-      content: "";
-      top: 0;
-      left: calc(var(--star-width) / -2);
-      width: var(--star-width);
-      height: 100%;
-      background: linear-gradient(45deg, transparent, var(--star-color), transparent);
-      border-radius: inherit;
-      animation: blink 2s linear infinite;
-    }
+        .text-content {
+            max-width: 800px;
+            display: none;
+            text-align: justify;
+            font-size: 18px;
+        }
 
-    .star::before {
-      transform: rotate(45deg);
-    }
+        .photo-frame {
+            float: left;
+            border: 3px solid #ffffff;
+            border-radius: 8px;
+            width: 30%;
+            max-width: 150px;
+            height: auto;
+            margin-right: 20px;
+        }
 
-    .star::after {
-      transform: rotate(-45deg);
-    }
+        .photo-frame img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
 
-    @keyframes fall {
-      to {
-        transform: translate3d(-30em, 0, 0);
-      }
-    }
+        #stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; /* Estrelas devem ficar atrás do conteúdo */
+            pointer-events: none;
+        }
 
-    @keyframes tail-fade {
-      0%,
-      50% {
-        width: var(--star-tail-length);
-        opacity: 1;
-      }
+        .star, .shooting-star, .extra-star {
+            position: absolute;
+            border-radius: 50%;
+            background: white;
+        } 
 
-      70%,
-      80% {
-        width: 0;
-        opacity: 0.4;
-      }
+        .star {
+            width: 2px;
+            height: 2px;
+            animation: twinkling 3s infinite;
+        }
 
-      100% {
-        width: 0;
-        opacity: 0;
-      }
-    }
+        .shooting-star {
+            width: 3px;
+            height: 3px;
+            animation: shooting 1s ease-in-out infinite;
+            background: linear-gradient(white, transparent); /* Adiciona cauda */
+        }
 
-    @keyframes blink {
-      50% {
-        opacity: 0.6;
-      }
-    }
+        .extra-star {
+            width: 2px;
+            height: 2px;
+            background: white;
+            animation: spread 1s forwards;
+        }
 
-    /* Gerando múltiplas estrelas */
-    @media screen and (max-width: 750px) {
-      .star {
-        animation: none; /* Desativar animações complexas em dispositivos móveis */
-        opacity: 0.5;
-      }
-    }
+        @keyframes twinkling {
+            0%, 100% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
 
-    /* Estrelas dinâmicas */
-    .star:nth-child(1) {
-      --star-tail-length: 5.2em;
-      --top-offset: 10vh;
-      --fall-duration: 8s;
-      --fall-delay: 2s;
-    }
-    .star:nth-child(2) {
-      --star-tail-length: 6.5em;
-      --top-offset: 20vh;
-      --fall-duration: 9s;
-      --fall-delay: 1s;
-    }
-    .star:nth-child(3) {
-      --star-tail-length: 4.5em;
-      --top-offset: 30vh;
-      --fall-duration: 10s;
-      --fall-delay: 3s;
-    }
-    .star:nth-child(4) {
-      --star-tail-length: 5.8em;
-      --top-offset: 40vh;
-      --fall-duration: 8s;
-      --fall-delay: 0s;
-    }
-    .star:nth-child(5) {
-      --star-tail-length: 7em;
-      --top-offset: 50vh;
-      --fall-duration: 12s;
-      --fall-delay: 1.5s;
-    }
-    .star:nth-child(6) {
-      --star-tail-length: 4em;
-      --top-offset: 60vh;
-      --fall-duration: 9s;
-      --fall-delay: 3.5s;
-    }
-    .star:nth-child(7) {
-      --star-tail-length: 6em;
-      --top-offset: 70vh;
-      --fall-duration: 10s;
-      --fall-delay: 2.2s;
-    }
-    .star:nth-child(8) {
-      --star-tail-length: 5.5em;
-      --top-offset: 80vh;
-      --fall-duration: 8s;
-      --fall-delay: 1s;
-    }
-    .star:nth-child(9) {
-      --star-tail-length: 6.2em;
-      --top-offset: 90vh;
-      --fall-duration: 11s;
-      --fall-delay: 0.5s;
-    }
-    .star:nth-child(10) {
-      --star-tail-length: 5em;
-      --top-offset: 100vh;
-      --fall-duration: 9s;
-      --fall-delay: 2.8s;
-    }
-    .star:nth-child(11) {
-      --star-tail-length: 6.8em;
-      --top-offset: 110vh;
-      --fall-duration: 7s;
-      --fall-delay: 3s;
-    }
-    .star:nth-child(12) {
-      --star-tail-length: 5.3em;
-      --top-offset: 120vh;
-      --fall-duration: 9s;
-      --fall-delay: 1.7s;
-    }
-    .star:nth-child(13) {
-      --star-tail-length: 4.9em;
-      --top-offset: 130vh;
-      --fall-duration: 10s;
-      --fall-delay: 2.4s;
-    }
-    .star:nth-child(14) {
-      --star-tail-length: 5.1em;
-      --top-offset: 140vh;
-      --fall-duration: 8s;
-      --fall-delay: 1.3s;
-    }
-    .star:nth-child(15) {
-      --star-tail-length: 6.1em;
-      --top-offset: 150vh;
-      --fall-duration: 9s;
-      --fall-delay: 2.9s;
-    }
-    .star:nth-child(16) {
-      --star-tail-length: 5.4em;
-      --top-offset: 160vh;
-      --fall-duration: 10s;
-      --fall-delay: 0.8s;
-    }
-    .star:nth-child(17) {
-      --star-tail-length: 6.6em;
-      --top-offset: 170vh;
-      --fall-duration: 11s;
-      --fall-delay: 1.4s;
-    }
-    .star:nth-child(18) {
-      --star-tail-length: 4.7em;
-      --top-offset: 180vh;
-      --fall-duration: 8s;
-      --fall-delay: 2.6s;
-    }
-    .star:nth-child(19) {
-      --star-tail-length: 5.9em;
-      --top-offset: 190vh;
-      --fall-duration: 10s;
-      --fall-delay: 1.9s;
-    }
-    .star:nth-child(20) {
-      --star-tail-length: 6.4em;
-      --top-offset: 200vh;
-      --fall-duration: 9s;
-      --fall-delay: 0.3s;
-    }
-  </style>
+        @keyframes shooting {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(-100vw, 100vh); /* Movimento diagonal */
+            }
+        }
+
+        @keyframes spread {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Efeito para a mudança de cor do texto */
+        .color1 { color: #f7e6e6; }
+        .color2 { color: #ffcc66; }
+        .color3 { color: #99ccff; }
+
+    </style>
 </head>
 <body>
+    <div class="container">
+        <div class="counter" id="counter"></div>
+        <div class="second-counter" id="second-counter"></div>
+        <div class="text-content">
+            <div class="photo-frame">
+                <img src="photo.jpg" alt="Sua foto aqui">
+            </div>
+            <div class="text">Eu te amo infinitamente, obrigado por ser essa mulher incrível.</div>
+            <div class="text-below">Obrigado também por ser minha luz e por me tranquilizar de todas as situações complicadas em que eu acabei me estressando. Você é importante pra mim ❤️.</div>
+        </div>
+    </div>
 
-  <div class="stars">
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-  </div>
+    <div id="stars"></div>
 
+    <script>
+        const relationshipStart = new Date('2024-08-22T21:20:00');
+        const oneMonthMark = new Date('2024-09-22T21:20:00');
+        const colors = ['color1', 'color2', 'color3']; // Cores para mudar o texto
+
+        function updateCounters() {
+            const now = new Date();
+            const timeDiff = oneMonthMark - now;
+            const seconds = Math.floor(timeDiff / 1000);
+            const days = Math.floor(seconds / (60 * 60 * 24));
+            const hours = Math.floor((seconds % (60 * 60 * 24)) / (60 * 60));
+            const minutes = Math.floor((seconds % (60 * 60)) / 60);
+            const remainingSeconds = seconds % 60;
+
+            if (timeDiff > 0) {
+                document.getElementById('counter').innerText = `${days} dias, ${hours} horas, ${minutes} minutos e ${remainingSeconds} segundos`;
+            } else {
+                const nowDate = new Date();
+                const relMonths = nowDate.getMonth() - relationshipStart.getMonth() + (nowDate.getFullYear() - relationshipStart.getFullYear()) * 12;
+                const relDays = nowDate.getDate() - relationshipStart.getDate();
+                const relHours = nowDate.getHours() - relationshipStart.getHours();
+                const relMinutes = nowDate.getMinutes() - relationshipStart.getMinutes();
+                const relSeconds = nowDate.getSeconds() - relationshipStart.getSeconds();
+                document.getElementById('second-counter').innerText = `${relMonths} meses, ${relDays} dias, ${relHours} horas, ${relMinutes} minutos e ${relSeconds} segundos`;
+                document.getElementById('counter').innerText = `Nosso ${relMonths}º mês!`;
+                document.querySelector('.text-content').style.display = 'block';
+            }
+        }
+
+        function createStars() {
+            const starContainer = document.getElementById('stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.top = `${Math.random() * 100}vh`;
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                starContainer.appendChild(star);
+            }
+        }
+
+        function createShootingStars() {
+            const starContainer = document.getElementById('stars');
+            for (let i = 0; i < 5; i++) {
+                const shootingStar = document.createElement('div');
+                shootingStar.classList.add('shooting-star');
+                shootingStar.style.top = `${Math.random() * 100}vh`;
+                shootingStar.style.left = `${Math.random() * 100}vw`;
+                shootingStar.style.animationDelay = `${Math.random() * 5}s`;
+                starContainer.appendChild(shootingStar);
+            }
+        }
+
+        function changeTextColor() {
+            const textContent = document.querySelector('.text-content');
+            textContent.classList.remove(...colors);
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            textContent.classList.add(randomColor);
+        }
+
+        function createClickStars(event) {
+            const starContainer = document.getElementById('stars');
+            for (let i = 0; i < 50; i++) {
+                const extraStar = document.createElement('div');
+                extraStar.classList.add('extra-star');
+                extraStar.style.top = `${event.clientY}px`;
+                extraStar.style.left = `${event.clientX}px`;
+                extraStar.style.animationDelay = `${Math.random() * 0.5}s`;
+                extraStar.style.transform = `scale(${Math.random() * 1.5})`;
+                starContainer.appendChild(extraStar);
+            }
+
+            setTimeout(() => {
+                const extraStars = document.querySelectorAll('.extra-star');
+                extraStars.forEach(star => star.remove());
+                createStars(); // Volta para o número normal de estrelas
+            }, 4000);
+        }
+
+        document.body.addEventListener('click', (event) => {
+            changeTextColor();
+  createClickStars(event);
+        });
+
+        // Cria as estrelas e estrelas cadentes ao carregar a página
+        createStars();
+        createShootingStars();
+        setInterval(updateCounters, 1000); // Atualiza os contadores a cada segundo
+    </script>
 </body>
 </html>
