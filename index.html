@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Animation - Sequential and Responsive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
@@ -13,32 +14,29 @@
             align-items: center;
             height: 100vh;
             background-color: white;
+            overflow: hidden; /* Previne barras de rolagem */
         }
 
         svg {
             width: 100vw;
             height: 100vh;
+            position: relative;
+            z-index: 1; /* Garantir que o contador esteja abaixo */
         }
 
         .image {
             transition: all 1s ease;
             cursor: pointer;
-            animation: slideImages 20s linear infinite; /* Animação para deslocamento horizontal */
+            animation: slideImages 60s linear infinite; /* Animação para deslocamento contínuo */
         }
 
-        .image:hover {
-            transition: all 1s ease;
-            filter: none;
-            z-index: 100;
-        }
-
-        /* Animação de deslocamento horizontal */
+        /* Animação de deslocamento horizontal contínua */
         @keyframes slideImages {
             0% {
                 transform: translateX(100%);
             }
             100% {
-                transform: translateX(-100%);
+                transform: translateX(-200%);
             }
         }
 
@@ -53,24 +51,64 @@
                 height: 150px;
             }
         }
+
+        .counter {
+            font-family: 'Dancing Script', cursive;
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #333;
+            border-radius: 15px;
+            padding: 10px;
+            font-size: 24px;
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 0; /* Faz o contador ficar abaixo das imagens */
+        }
+
     </style>
 </head>
 <body>
 <svg viewBox="0 0 500 500" xmlns='http://www.w3.org/2000/svg'>
-    <filter id='noise' x='0%' y='0%' width='100%' height='100%'>
-        <feTurbulence baseFrequency="0.02 0.6" result="NOISE" numOctaves="2" />
-        <feDisplacementMap in="SourceGraphic" in2="NOISE" scale="20" xChannelSelector="R" yChannelSelector="R"></feDisplacementMap>
-    </filter>
+    <!-- Imagens duplicadas para garantir o loop contínuo -->
+    <image class="image" xlink:href="https://samrithasudhagar.github.io/assets/IMG_20201020_154608.jpg" x="-60" y="0" width="300px" height="300px"></image>
+    <image class="image" xlink:href="https://samrithasudhagar.github.io/assets/1626262255012__01.jpg" x="450" y="0" width="300px" height="300px"></image>
+    <image class="image" xlink:href="https://samrithasudhagar.github.io/assets/IMG_20200911_121501__01.jpg" x="180" y="240" width="300px" height="300px"></image>
+    <image class="image" xlink:href="https://samrithasudhagar.github.io/assets/1624465339754.jpg" x="-300" y="240" width="300px" height="300px"></image>
+    <image class="image" xlink:href="https://samrithasudhagar.github.io/assets/1624176647257.jpg" x="470" y="260" width="300px" height="300px"></image>
 
-    <!-- Imagens com filtro de ruído e animação sequencial -->
-    <image class="image one" xlink:href="https://samrithasudhagar.github.io/assets/IMG_20201020_154608.jpg" x="-60" y="0" width="300px" height="300px" filter="url(#noise)"></image>
-    <image class="image two" xlink:href="https://samrithasudhagar.github.io/assets/1626262255012__01.jpg" x="450" y="0" width="300px" height="300px" filter="url(#noise)"></image>
-    <image class="image three" xlink:href="https://samrithasudhagar.github.io/assets/IMG_20200911_121501__01.jpg" x="180" y="240" width="300px" height="300px" filter="url(#noise)"></image>
-    <image class="image four" xlink:href="https://samrithasudhagar.github.io/assets/1624465339754.jpg" x="-300" y="240" width="300px" height="300px" filter="url(#noise)"></image>
-    <image class="image five" xlink:href="https://samrithasudhagar.github.io/assets/1624176647257.jpg" x="470" y="260" width="300px" height="300px" filter="url(#noise)"></image>
-    <image class="image six" xlink:href="https://samrithasudhagar.github.io/assets/IMG_20201031_165610.jpg" x="-300" y="-30" width="300px" height="260px" filter="url(#noise)"></image>
-    <image class="image seven" xlink:href="https://samrithasudhagar.github.io/assets/IMG_20210615_152626.jpg" x="190" y="-30" width="300px" height="260px" filter="url(#noise)"></image>
-    <image class="image eight" xlink:href="https://samrithasudhagar.github.io/assets/1624093534547.jpg" x="-40" y="320" width="200px" height="260px" filter="url(#noise)"></image>
+    <!-- Imagens duplicadas para criar o loop contínuo -->
+    <image class="image" xlink:href="https://samrithasudhagar.github.io/assets/IMG_20201020_154608.jpg" x="1000" y="0" width="300px" height="300px"></image>
+    <image class="image" xlink:href="https://samrithasudhagar.github.io/assets/1626262255012__01.jpg" x="1500" y="0" width="300px" height="300px"></image>
+    <image class="image" xlink:href="https://samrithasudhagar.github.io/assets/IMG_20200911_121501__01.jpg" x="1280" y="240" width="300px" height="300px"></image>
+    <image class="image" xlink:href="https://samrithasudhagar.github.io/assets/1624465339754.jpg" x="800" y="240" width="300px" height="300px"></image>
+    <image class="image" xlink:href="https://samrithasudhagar.github.io/assets/1624176647257.jpg" x="1270" y="260" width="300px" height="300px"></image>
 </svg>
+
+<!-- Contador abaixo das imagens -->
+<div class="counter" id="counter"></div>
+
+<script>
+    const oneMonthMark = new Date('2024-09-22T21:20:00');
+
+    function updateCounter() {
+        const now = new Date();
+        const timeDiff = oneMonthMark - now;
+        const seconds = Math.floor(timeDiff / 1000);
+        const days = Math.floor(seconds / (60 * 60 * 24));
+        const hours = Math.floor((seconds % (60 * 60 * 24)) / (60 * 60));
+        const minutes = Math.floor((seconds % (60 * 60)) / 60);
+        const remainingSeconds = seconds % 60;
+
+        if (timeDiff > 0) {
+            document.getElementById('counter').innerText = `${days} dias, ${hours} horas, ${minutes} minutos e ${remainingSeconds} segundos restantes`;
+        } else {
+            document.getElementById('counter').innerText = `Já completamos 1 mês juntos!`;
+        }
+    }
+
+    setInterval(updateCounter, 1000); // Atualiza o contador a cada segundo
+</script>
+
 </body>
 </html>
