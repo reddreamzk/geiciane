@@ -47,8 +47,30 @@
             z-index: 2;
         }
 
-        .counter, .second-counter, .text-content {
+        .counter, .second-counter {
             font-family: 'Dancing Script', cursive;
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #333;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            margin: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            font-size: 22px;
+        }
+
+        .counter:hover, .second-counter:hover {
+            transform: scale(1.05);
+        }
+
+        .text-content {
+            max-width: 800px;
+            display: none;
+            text-align: justify;
+            font-size: 18px;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
             background-color: rgba(255, 255, 255, 0.8);
             color: #333;
             border-radius: 15px;
@@ -58,15 +80,15 @@
             text-align: center;
         }
 
-        .counter, .second-counter {
-            font-size: 22px;
+        .text-content.show {
+            display: block;
+            opacity: 1;
         }
 
-        .text-content {
-            max-width: 800px;
-            display: none;
-            text-align: justify;
-            font-size: 18px;
+        @media (max-width: 768px) {
+            .text-content {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
@@ -83,14 +105,16 @@
     <div class="container">
         <div class="counter" id="counter"></div>
         <div class="second-counter" id="second-counter"></div>
-        <div class="text-content">
-            <div class="text">Eu te amo infinitamente, obrigado por ser essa mulher incrível.</div>
-            <div class="text-below">Obrigado também por ser minha luz e por me tranquilizar de todas as situações complicadas em que eu acabei me estressando. Você é importante pra mim ❤️.</div>
+        <div class="text-content" id="text-content">
+            <div class="text">
+                nosso segundo mês juntos e é incrível… é incrível ver que em poucos meses fizemos tantas coisas juntos que é incontável, porém, sempre quando dentro do meu peito os sentimentos que você me trás, eu comprei novos presentes e significa muito pra mim ver esse seu sorriso maravilhoso, ver a criança que existe aí dentro de vc que ama coisas simples. eu me sinto seguro com você e sempre vou te passar segurança, fico muito feliz de estar ao seu lado e saber que brevemente estaremos de férias só nós dois, de fato, esses dois meses são tudo pra mim e saiba, você sempre será minha prioridade e a mulher da minha vida. Eu te amo infinitamente! 🥹❤️
+            </div>
         </div>
     </div>
 
     <script>
         const relationshipStart = new Date('2024-08-22T21:20:00');
+        const secondMonthDate = new Date('2024-10-22T21:20:00');
 
         function calculateExactMonths(startDate, currentDate) {
             let months = (currentDate.getFullYear() - startDate.getFullYear()) * 12 + (currentDate.getMonth() - startDate.getMonth());
@@ -117,12 +141,15 @@
             const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
 
-            if (timeDiff > 0) {
-                document.getElementById('counter').innerText = `${relMonths} meses`;
-                document.getElementById('second-counter').innerText = `${days} dias, ${hours} horas, ${minutes} minutos e ${seconds} segundos até o próximo mês`;
-                document.querySelector('.text-content').style.display = 'block';
-            } else {
-                document.getElementById('counter').innerText = `Nosso ${relMonths + 1}º mês!`;
+            const counter = document.getElementById('counter');
+            const secondCounter = document.getElementById('second-counter');
+            const textContent = document.getElementById('text-content');
+
+            counter.innerText = `${relMonths} meses`;
+            secondCounter.innerText = `${days} dias, ${hours} horas, ${minutes} minutos e ${seconds} segundos até o próximo mês`;
+
+            if (now >= secondMonthDate) {
+                textContent.classList.add('show'); // Exibe o texto no segundo mês
             }
         }
 
