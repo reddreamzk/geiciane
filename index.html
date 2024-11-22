@@ -24,7 +24,7 @@
             height: 100%;
             object-fit: cover;
             z-index: 0;
-            opacity: 0.3;
+            opacity: 0.5; /* Aumentei a visibilidade do vídeo */
             pointer-events: none;
         }
 
@@ -78,8 +78,8 @@
             padding: 15px;
             margin: 20px;
             text-align: center;
-            font-family: 'Great Vibes', cursive; /* Fonte romântica aplicada */
-            font-size: 24px; /* Aumenta um pouco o tamanho do texto para destacar */
+            font-family: 'Great Vibes', cursive;
+            font-size: 24px;
         }
 
         .text-content.show {
@@ -96,8 +96,9 @@
 </head>
 <body>
     <!-- Vídeo de fundo -->
-    <video class="video-background" autoplay loop muted>
+    <video class="video-background" autoplay loop muted playsinline>
         <source src="momentos.mp4" type="video/mp4">
+        <source src="momentos.mov" type="video/quicktime"> <!-- Adiciona MOV para compatibilidade com Safari -->
         Seu navegador não suporta vídeos em HTML5.
     </video>
 
