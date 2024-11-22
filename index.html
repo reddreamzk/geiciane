@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>❤️</title>
     
-    <!-- Meta Tags para iOS -->
+    
     <meta name="apple-mobile-web-app-title" content="Contadores de Relacionamento">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="apple-touch-icon" href="icons/icon-192x192.png">
     
-    <!-- Manifesto -->
+    
     <link rel="manifest" href="manifest.json">
     
-    <!-- Fontes do Google -->
+    
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
@@ -107,29 +107,29 @@
     </style>
 </head>
 <body>
-    <!-- Vídeo de fundo -->
+    
     <video class="video-background" autoplay loop muted playsinline>
         <source src="momentos.mp4" type="video/mp4">
         <source src="momentos.mov" type="video/quicktime"> <!-- Para compatibilidade com Safari -->
         Seu navegador não suporta vídeos em HTML5.
     </video>
 
-    <!-- Camada semi-transparente sobre o vídeo -->
+    
     <div class="overlay"></div>
 
-    <!-- Áudio de fundo -->
+
     <audio id="background-audio" autoplay loop>
         <source src="music.mp3" type="audio/mp3">
         Seu navegador não suporta a tag de áudio.
     </audio>
 
-    <!-- Contadores -->
+    
     <div class="container">
         <div class="counter" id="counter"></div>
         <div class="second-counter" id="second-counter"></div>
         <div class="text-content" id="text-content">
             <div class="text">
-                <!-- Você pode adicionar aqui algum texto que deseja exibir quando o app atingir o segundo mês -->
+                
             </div>
         </div>
     </div>
@@ -138,7 +138,7 @@
         const relationshipStart = new Date('2024-08-22T21:20:00');
         const secondMonthDate = new Date('2024-10-22T21:20:00');
 
-        // Função para calcular meses exatos de um evento
+        
         function calculateExactMonths(startDate, currentDate) {
             let months = (currentDate.getFullYear() - startDate.getFullYear()) * 12 + (currentDate.getMonth() - startDate.getMonth());
             if (currentDate.getDate() < startDate.getDate()) {
@@ -147,14 +147,14 @@
             return months;
         }
 
-        // Função para calcular a data do próximo aniversário
+        
         function getNextAnniversaryDate(startDate, months) {
             const nextAnniversary = new Date(startDate);
             nextAnniversary.setMonth(startDate.getMonth() + months);
             return nextAnniversary;
         }
 
-        // Função para atualizar os contadores de meses e tempo até o próximo
+         
         function updateCounters() {
             const now = new Date();
             const relMonths = calculateExactMonths(relationshipStart, now);
@@ -181,7 +181,7 @@
         setInterval(updateCounters, 1000); // Atualiza os contadores a cada segundo
     </script>
 
-    <!-- Registrar Service Worker -->
+    
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/sw.js')
