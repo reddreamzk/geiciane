@@ -24,7 +24,7 @@
             height: 100%;
             object-fit: cover;
             z-index: 0;
-            opacity: 0.5; /* Aumentei a visibilidade do vídeo */
+            opacity: 0.5; 
             pointer-events: none;
         }
 
@@ -95,17 +95,17 @@
     </style>
 </head>
 <body>
-    <!-- Vídeo de fundo -->
+    
     <video class="video-background" autoplay loop muted playsinline>
         <source src="momentos.mp4" type="video/mp4">
         <source src="momentos.mov" type="video/quicktime"> <!-- Adiciona MOV para compatibilidade com Safari -->
         Seu navegador não suporta vídeos em HTML5.
     </video>
 
-    <!-- Camada semi-transparente sobre o vídeo -->
+    
     <div class="overlay"></div>
 
-    <!-- Áudio de fundo -->
+    
     <audio id="background-audio" autoplay loop>
         <source src="music.mp3" type="audio/mp3">
         Seu navegador não suporta a tag de áudio.
