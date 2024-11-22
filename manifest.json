@@ -2,7 +2,7 @@
   "name": "Contadores de Relacionamento",
   "short_name": "Contadores",
   "description": "Um site de contagem de meses e aniversários",
-  "start_url": "/",
+  "start_url": "https://verstappen1on.github.io/espa-o_e_luz/index.html”,
   "display": "standalone",  // Isso faz com que o app abra em tela cheia, sem a barra de navegação
   "background_color": "#000000",
   "theme_color": "#ffffff",
