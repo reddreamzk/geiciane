@@ -129,6 +129,7 @@
         <div class="second-counter" id="second-counter"></div>
         <div class="text-content" id="text-content">
             <div class="text">
+                <!-- Você pode adicionar aqui algum texto que deseja exibir quando o app atingir o segundo mês -->
             </div>
         </div>
     </div>
@@ -137,6 +138,7 @@
         const relationshipStart = new Date('2024-08-22T21:20:00');
         const secondMonthDate = new Date('2024-10-22T21:20:00');
 
+        // Função para calcular meses exatos de um evento
         function calculateExactMonths(startDate, currentDate) {
             let months = (currentDate.getFullYear() - startDate.getFullYear()) * 12 + (currentDate.getMonth() - startDate.getMonth());
             if (currentDate.getDate() < startDate.getDate()) {
@@ -145,12 +147,14 @@
             return months;
         }
 
+        // Função para calcular a data do próximo aniversário
         function getNextAnniversaryDate(startDate, months) {
             const nextAnniversary = new Date(startDate);
             nextAnniversary.setMonth(startDate.getMonth() + months);
             return nextAnniversary;
         }
 
+        // Função para atualizar os contadores de meses e tempo até o próximo
         function updateCounters() {
             const now = new Date();
             const relMonths = calculateExactMonths(relationshipStart, now);
