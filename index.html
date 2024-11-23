@@ -180,12 +180,18 @@
         // Função para alternar entre tela cheia e normal
         document.getElementById('text-content').addEventListener('click', function() {
             const textContent = document.getElementById('text-content');
+            const counter = document.getElementById('counter');
+            const secondCounter = document.getElementById('second-counter');
 
             // Alterna entre tela cheia e tamanho normal
             if (textContent.classList.contains('fullscreen')) {
                 textContent.classList.remove('fullscreen');
+                counter.style.display = 'block'; // Exibe o contador
+                secondCounter.style.display = 'block'; // Exibe o segundo contador
             } else {
                 textContent.classList.add('fullscreen');
+                counter.style.display = 'none'; // Oculta o contador
+                secondCounter.style.display = 'none'; // Oculta o segundo contador
             }
         });
 
