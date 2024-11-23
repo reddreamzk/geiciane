@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>❤️</title>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap">
     <style>
@@ -98,34 +98,24 @@
         }
 
         .instagram-button {
-            width: 50px;
-            height: 50px;
+            width: 24px;
+            height: 24px;
             padding: 0;
             position: relative;
-            margin-right: 8px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 2px solid #fff;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-right: 8px; /* Espaçamento entre o ícone e a assinatura */
         }
 
         .instagram-button img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
-        }
-
-        .instagram-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
         }
 
         .signature {
             text-align: center;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Arial', sans-serif; /* Fonte mais simples para a assinatura */
             font-size: 12px;
             color: #fff;
-            margin-top: 5px;
+            margin-top: 5px; /* Ajusta o espaçamento entre o ícone e a assinatura */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -133,7 +123,7 @@
 
         .footer {
             position: fixed;
-            bottom: 20px;
+            bottom: 20px; /* Posição fixa no rodapé */
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
@@ -146,7 +136,7 @@
     
     <video class="video-background" autoplay loop muted playsinline>
         <source src="loop.mp4" type="video/mp4">
-        <source src="momentos.mov" type="video/quicktime">
+        <source src="momentos.mov" type="video/quicktime"> <!-- Adiciona MOV para compatibilidade com Safari -->
         Seu navegador não suporta vídeos em HTML5.
     </video>
 
@@ -243,3 +233,5 @@
     </script>
 </body>
 </html>
+
+Tente deixar o ícone do Instagram mais bonito, tente bloquear o zoom da página 
