@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messages>
+    <videoNotSupported>Seu navegador não suporta vídeos em HTML5.</videoNotSupported>
+    <audioNotSupported>Seu navegador não suporta a tag de áudio.</audioNotSupported>
+    <clickToPlay>Clique para reproduzir</clickToPlay>
+    <videoLoading>Carregando vídeo...</videoLoading>
+</messages>
