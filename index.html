@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>❤️</title>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -93,7 +94,7 @@
 
         .instagram-button {
             position: fixed;
-            bottom: 20px;
+            bottom: 70px; /* Ajustado para ficar mais baixo */
             left: 50%;
             transform: translateX(-50%);
             background-color: transparent;
@@ -118,6 +119,18 @@
             height: 30px;
         }
 
+        .signature {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Dancing Script', cursive;
+            font-size: 14px;
+            color: #fff;
+            z-index: 5;
+            text-align: center;
+        }
+
         @media (max-width: 768px) {
             .text-content {
                 font-size: 20px;
@@ -130,6 +143,9 @@
             .instagram-button img {
                 width: 24px;
                 height: 24px;
+            }
+            .signature {
+                font-size: 12px;
             }
         }
     </style>
@@ -161,6 +177,11 @@
     <a href="https://www.instagram.com/bruno.snntss?igsh=ZzJidDh6eXF1dXFm&utm_source=qr" target="_blank" class="instagram-button" title="Visite meu Instagram">
         <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram">
     </a>
+
+    <!-- Assinatura -->
+    <div class="signature">
+        © brunosnntss 2024
+    </div>
 
     <script>
         const relationshipStart = new Date('2024-08-22T21:20:00');
