@@ -66,11 +66,9 @@
 
         .text-content {
             max-width: 800px;
-            display: none;
             text-align: justify;
             font-size: 18px;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
+            opacity: 1; /* Exibindo o texto ao carregar */
             background-color: rgba(255, 255, 255, 0.5); /* Mais transparente */
             color: #333;
             border-radius: 15px;
@@ -83,14 +81,9 @@
             cursor: pointer;
             position: relative;
             z-index: 3;
+            transition: opacity 0.5s ease-in-out;
         }
 
-        .text-content.show {
-            display: block;
-            opacity: 1;
-        }
-
-        /* Tamanho maior quando em tela cheia */
         .text-content.fullscreen {
             position: fixed;
             top: 10%;
@@ -184,6 +177,7 @@
                 .catch(error => console.error('Erro ao carregar o texto:', error));
         }
 
+        // Função para alternar entre tela cheia e normal
         document.getElementById('text-content').addEventListener('click', function() {
             const textContent = document.getElementById('text-content');
 
@@ -197,7 +191,8 @@
 
         setInterval(updateCounters, 1000); // Atualiza os contadores a cada segundo
 
-        loadText(); // Carrega o texto do arquivo JSON
+        loadText(); // Carrega o texto do arquivo JSON e o exibe
+
     </script>
 </body>
 </html>
