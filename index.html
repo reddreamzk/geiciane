@@ -81,11 +81,27 @@
             font-family: 'Great Vibes', cursive;
             font-size: 24px;
             cursor: pointer;
+            position: relative;
+            z-index: 3;
         }
 
         .text-content.show {
             display: block;
             opacity: 1;
+        }
+
+        /* Tamanho maior quando em tela cheia */
+        .text-content.fullscreen {
+            position: fixed;
+            top: 10%;
+            left: 10%;
+            right: 10%;
+            bottom: 10%;
+            font-size: 32px;
+            max-width: none;
+            margin: 0;
+            z-index: 4;
+            overflow-y: auto;
         }
 
         @media (max-width: 768px) {
@@ -154,7 +170,7 @@
             counter.innerText = `${relMonths} meses`;
             secondCounter.innerText = `${days} dias, ${hours} horas, ${minutes} minutos e ${seconds} segundos até o próximo mês`;
 
-            // Aqui a lógica de exibição do texto foi removida para que o texto sempre apareça ao clicar
+            // Aqui a lógica de exibição do texto foi removida para que o texto sempre apareça
         }
 
         // Função para carregar o texto do arquivo JSON
@@ -169,14 +185,14 @@
         }
 
         document.getElementById('text-content').addEventListener('click', function() {
-            const counter = document.getElementById('counter');
-            const secondCounter = document.getElementById('second-counter');
             const textContent = document.getElementById('text-content');
 
-            // Exibe o texto completo e oculta o contador ao clicar
-            textContent.classList.add('show');
-            counter.style.display = 'none';
-            secondCounter.style.display = 'none';
+            // Alterna entre tela cheia e tamanho normal
+            if (textContent.classList.contains('fullscreen')) {
+                textContent.classList.remove('fullscreen');
+            } else {
+                textContent.classList.add('fullscreen');
+            }
         });
 
         setInterval(updateCounters, 1000); // Atualiza os contadores a cada segundo
