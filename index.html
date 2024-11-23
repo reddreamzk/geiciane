@@ -132,10 +132,14 @@
         const secondMonthDate = new Date('2024-10-22T21:20:00');
 
         function calculateExactMonths(startDate, currentDate) {
+            // Garantindo que a contagem de meses seja precisa
             let months = (currentDate.getFullYear() - startDate.getFullYear()) * 12 + (currentDate.getMonth() - startDate.getMonth());
+            
+            // Verifica se a data do mês atual ainda é anterior à data de início no mês, ajustando os meses
             if (currentDate.getDate() < startDate.getDate()) {
                 months--;
             }
+
             return months;
         }
 
