@@ -1,7 +1,11 @@
-import texts from './texts.json' assert { type: 'json' };
-
 const relationshipStart = new Date('2024-08-22T21:20:00');
 const secondMonthDate = new Date('2024-10-22T21:20:00');
+
+async function loadTextContent() {
+    const response = await fetch('./texts.json');
+    const texts = await response.json();
+    return texts;
+}
 
 function calculateExactMonths(startDate, currentDate) {
     let months = (currentDate.getFullYear() - startDate.getFullYear()) * 12 + (currentDate.getMonth() - startDate.getMonth());
@@ -17,7 +21,7 @@ function getNextAnniversaryDate(startDate, months) {
     return nextAnniversary;
 }
 
-function updateCounters() {
+async function updateCounters() {
     const now = new Date();
     const relMonths = calculateExactMonths(relationshipStart, now);
     const nextAnniversary = getNextAnniversaryDate(relationshipStart, relMonths + 1);
@@ -36,10 +40,11 @@ function updateCounters() {
     secondCounter.innerText = `${days} dias, ${hours} horas, ${minutes} minutos e ${seconds} segundos até o próximo mês`;
 
     if (now >= secondMonthDate) {
+        const texts = await loadTextContent();
         const textDiv = textContent.querySelector('.text');
-        textDiv.innerText = texts.secondMonth; // Busca o texto do arquivo texts.json
+        textDiv.innerText = texts.secondMonth; // Atualiza com o texto do JSON
         textContent.classList.add('show');
     }
 }
 
-setInterval(updateCounters, 1000);
+setInterval(updateCounters, 1000); // Atualiza os contadores a cada segundo
