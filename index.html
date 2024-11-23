@@ -49,15 +49,13 @@
 
         .counter, .second-counter {
             font-family: 'Dancing Script', cursive;
-            background-color: rgba(255, 255, 255, 0.5); /* Mais transparente */
-            color: #333;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
             padding: 15px;
             margin: 20px;
             text-align: center;
-            transition: transform 0.3s ease;
             font-size: 22px;
+            transition: transform 0.3s ease;
         }
 
         .counter:hover, .second-counter:hover {
@@ -68,14 +66,10 @@
             max-width: 800px;
             text-align: justify;
             font-size: 18px;
-            opacity: 1; /* Exibindo o texto ao carregar */
-            background-color: rgba(255, 255, 255, 0.5); /* Mais transparente */
-            color: #333;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
             padding: 15px;
             margin: 20px;
-            text-align: center;
             font-family: 'Great Vibes', cursive;
             font-size: 24px;
             cursor: pointer;
@@ -132,14 +126,10 @@
         const secondMonthDate = new Date('2024-10-22T21:20:00');
 
         function calculateExactMonths(startDate, currentDate) {
-            // Garantindo que a contagem de meses seja precisa
             let months = (currentDate.getFullYear() - startDate.getFullYear()) * 12 + (currentDate.getMonth() - startDate.getMonth());
-            
-            // Verifica se a data do mês atual ainda é anterior à data de início no mês, ajustando os meses
             if (currentDate.getDate() < startDate.getDate()) {
                 months--;
             }
-
             return months;
         }
 
@@ -166,43 +156,37 @@
 
             counter.innerText = `${relMonths} meses`;
             secondCounter.innerText = `${days} dias, ${hours} horas, ${minutes} minutos e ${seconds} segundos até o próximo mês`;
-
-            // Aqui a lógica de exibição do texto foi removida para que o texto sempre apareça
         }
 
-        // Função para carregar o texto do arquivo JSON
         function loadText() {
             fetch('texts.json')
                 .then(response => response.json())
                 .then(data => {
                     const textElement = document.getElementById('text');
-                    textElement.innerHTML = data.secondMonthText; // Texto do segundo mês
+                    textElement.innerHTML = data.secondMonthText;
                 })
                 .catch(error => console.error('Erro ao carregar o texto:', error));
         }
 
-        // Função para alternar entre tela cheia e normal
         document.getElementById('text-content').addEventListener('click', function() {
             const textContent = document.getElementById('text-content');
             const counter = document.getElementById('counter');
             const secondCounter = document.getElementById('second-counter');
 
-            // Alterna entre tela cheia e tamanho normal
             if (textContent.classList.contains('fullscreen')) {
                 textContent.classList.remove('fullscreen');
-                counter.style.display = 'block'; // Exibe o contador
-                secondCounter.style.display = 'block'; // Exibe o segundo contador
+                counter.style.display = 'block';
+                secondCounter.style.display = 'block';
             } else {
                 textContent.classList.add('fullscreen');
-                counter.style.display = 'none'; // Oculta o contador
-                secondCounter.style.display = 'none'; // Oculta o segundo contador
+                counter.style.display = 'none';
+                secondCounter.style.display = 'none';
             }
         });
 
-        setInterval(updateCounters, 1000); // Atualiza os contadores a cada segundo
+        setInterval(updateCounters, 1000);
 
-        loadText(); // Carrega o texto do arquivo JSON e o exibe
-
+        loadText();
     </script>
 </body>
 </html>
