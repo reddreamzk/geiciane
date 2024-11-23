@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>❤️</title>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap">
     <style>
@@ -26,12 +26,6 @@
             z-index: 0;
             opacity: 0.5;
             pointer-events: none;
-            animation: fade-loop 0.5s linear infinite;
-        }
-
-        @keyframes fade-loop {
-            0%, 99% { opacity: 0.5; }
-            100% { opacity: 0.4; }
         }
 
         .overlay {
@@ -97,9 +91,48 @@
             overflow-y: auto;
         }
 
+        .instagram-button {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #E1306C;
+            border: none;
+            border-radius: 50%;
+            padding: 10px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            z-index: 5;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .instagram-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .instagram-button img {
+            width: 24px;
+            height: 24px;
+        }
+
         @media (max-width: 768px) {
             .text-content {
                 font-size: 20px;
+            }
+            .instagram-button {
+                width: 40px;
+                height: 40px;
+                padding: 8px;
+            }
+            .instagram-button img {
+                width: 20px;
+                height: 20px;
             }
         }
     </style>
@@ -126,6 +159,11 @@
             <div class="text" id="text"></div>
         </div>
     </div>
+
+    <!-- Botão do Instagram -->
+    <a href="https://www.instagram.com/bruno.snntss?igsh=ZzJidDh6eXF1dXFm&utm_source=qr" target="_blank" class="instagram-button" title="Visite meu Instagram">
+        <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram">
+    </a>
 
     <script>
         const relationshipStart = new Date('2024-08-22T21:20:00');
