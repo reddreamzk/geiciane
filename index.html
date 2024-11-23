@@ -121,7 +121,6 @@
 
     <script>
         const relationshipStart = new Date('2024-08-22T21:20:00');
-        const secondMonthDate = new Date('2024-10-22T21:20:00');
 
         // Função para carregar o texto do arquivo JSON
         async function loadText() {
@@ -131,6 +130,8 @@
                 const textElement = document.getElementById('second-month-text');
                 if (data.secondMonthText) {
                     textElement.innerText = data.secondMonthText; // Atribui o texto ao elemento
+                    const textContent = document.getElementById('text-content');
+                    textContent.classList.add('show'); // Exibe o texto imediatamente
                 } else {
                     console.error("Texto não encontrado no JSON.");
                 }
@@ -166,14 +167,9 @@
 
             const counter = document.getElementById('counter');
             const secondCounter = document.getElementById('second-counter');
-            const textContent = document.getElementById('text-content');
 
             counter.innerText = `${relMonths} meses`;
             secondCounter.innerText = `${days} dias, ${hours} horas, ${minutes} minutos e ${seconds} segundos até o próximo mês`;
-
-            if (now >= secondMonthDate) {
-                textContent.classList.add('show'); // Exibe o texto no segundo mês
-            }
         }
 
         loadText(); // Carrega o texto do JSON ao iniciar
