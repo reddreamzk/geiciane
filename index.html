@@ -115,14 +115,19 @@
         <div class="counter" id="counter"></div>
         <div class="second-counter" id="second-counter"></div>
         <div class="text-content" id="text-content">
-            <div class="text">
-            </div>
+            <div class="text" id="second-month-text"></div>
         </div>
     </div>
 
     <script>
         const relationshipStart = new Date('2024-08-22T21:20:00');
         const secondMonthDate = new Date('2024-10-22T21:20:00');
+
+        async function loadText() {
+            const response = await fetch('texts.json');
+            const data = await response.json();
+            document.getElementById('second-month-text').innerText = data.secondMonthText;
+        }
 
         function calculateExactMonths(startDate, currentDate) {
             let months = (currentDate.getFullYear() - startDate.getFullYear()) * 12 + (currentDate.getMonth() - startDate.getMonth());
@@ -160,6 +165,8 @@
                 textContent.classList.add('show'); // Exibe o texto no segundo mês
             }
         }
+
+        loadText(); // Carrega o texto do JSON ao iniciar
 
         setInterval(updateCounters, 1000); // Atualiza os contadores a cada segundo
     </script>
