@@ -123,30 +123,13 @@
 
         .footer {
             position: fixed;
-            bottom: 20px; 
+            bottom: 20px; /* bruno.snntss*/
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
             z-index: 5;
         }
 
-        .play-button {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            padding: 10px 20px;
-            background-color: #ff4081;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            z-index: 6;
-        }
-
-        .play-button:hover {
-            background-color: #f50057;
-        }
     </style>
 </head>
 <body>
@@ -159,12 +142,10 @@
 
     <div class="overlay"></div>
 
-    <audio id="background-audio" autoplay loop muted>
+    <audio id="background-audio" autoplay loop>
         <source src="music.mp3" type="audio/mp3">
         Seu navegador não suporta a tag de áudio.
     </audio>
-
-    <!-- Removemos o botão play -->
 
     <div class="container">
         <div class="counter" id="counter"></div>
@@ -240,34 +221,17 @@
                 counter.style.display = 'block';
                 secondCounter.style.display = 'block';
             } else {
-               
                 textContent.classList.add('fullscreen');
                 counter.style.display = 'none';
                 secondCounter.style.display = 'none';
             }
         });
 
-        // Função para desmutar o áudio após interação com a página
-        document.body.addEventListener('click', function() {
-            const audio = document.getElementById('background-audio');
-            if (audio.muted) {
-                audio.muted = false;
-            }
-        });
-
         setInterval(updateCounters, 1000);
 
-        // Inicializa a exibição do texto do segundo mês após o tempo correto
-        const secondMonthDate = new Date('2024-10-22T21:20:00');
-        const now = new Date();
-
-        if (now >= secondMonthDate) {
-            loadText(); // Carrega o texto do segundo mês
-        }
-
-        // Atualiza os contadores assim que a página carrega
-        updateCounters();
-
+        loadText();
     </script>
 </body>
 </html>
+
+Coloquei uma música mas não reproduziu, pode ser que seja necessário fazer ela rodar automaticamente?
