@@ -130,6 +130,23 @@
             z-index: 5;
         }
 
+        .play-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: #ff4081;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            z-index: 6;
+        }
+
+        .play-button:hover {
+            background-color: #f50057;
+        }
     </style>
 </head>
 <body>
@@ -142,10 +159,12 @@
 
     <div class="overlay"></div>
 
-    <audio id="background-audio" autoplay loop>
+    <audio id="background-audio" autoplay loop muted>
         <source src="music.mp3" type="audio/mp3">
         Seu navegador não suporta a tag de áudio.
     </audio>
+
+    <button class="play-button" onclick="playAudio()">Play Music</button>
 
     <div class="container">
         <div class="counter" id="counter"></div>
@@ -227,10 +246,15 @@
             }
         });
 
+        function playAudio() {
+            const audio = document.getElementById('background-audio');
+            audio.muted = false;  // Desativa o mudo
+            audio.play();         // Inicia a reprodução da música
+        }
+
         setInterval(updateCounters, 1000);
 
         loadText();
     </script>
 </body>
 </html>
-
