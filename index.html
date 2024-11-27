@@ -164,9 +164,13 @@
 
     <script>
         const videos = {
-            '11-27:12-24': 'loadnatal.mp4', // Vídeo "loadnatal" de 27 de novembro até 24 de dezembro
-            '12-25': 'natal.mp4',          // Vídeo "natal" no dia 25 de dezembro
-            '12-31:01-01': 'ano_novo.mp4', // Vídeo "ano_novo" de 31 de dezembro até 1º de janeiro
+ '11-27:12-24': 'loadnatal.mp4', 
+ '12-25': 'natal.mp4',        
+ '12-31:01-01': 'ano_novo.mp4',
+ '04-20' : 'pascoa', 
+ '05-17': 'dia_dos_namorados.mp4',
+ '07_22' : 'aniversário_amor.mp4',
+ '10-16' : 'aniversário_bruno.mp4',
         };
 
         const relationshipStart = new Date('2024-08-22T21:20:00');
@@ -203,7 +207,7 @@
         function updateVideo() {
             const now = new Date();
             const videoElement = document.getElementById('video-background');
-            const basePath = ''; // Defina o caminho base dos vídeos, se necessário
+            const basePath = ''; 
 
             let selectedVideo = 'padrao.mp4';
 
