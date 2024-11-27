@@ -123,20 +123,18 @@
 
         .footer {
             position: fixed;
-            bottom: 20px; /* bruno.snntss*/
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
             z-index: 5;
         }
-
     </style>
 </head>
 <body>
     
-    <video class="video-background" autoplay loop muted playsinline>
-        <source src="loop.mp4" type="video/mp4">
-        <source src="momentos.mov" type="video/quicktime"> 
+    <video class="video-background" autoplay loop muted playsinline id="video-background">
+        <source src="padrao.mp4" type="video/mp4">
         Seu navegador não suporta vídeos em HTML5.
     </video>
 
@@ -165,71 +163,32 @@
     </div>
 
     <script>
-        const relationshipStart = new Date('2024-08-22T21:20:00');
-        const secondMonthDate = new Date('2024-10-22T21:20:00');
+        const videos = {
+            '01-01': 'ano_novo.mp4', // Ano Novo
+            '12-25': 'natal.mp4',    // Natal
+            '06-12': 'dia_dos_namorados.mp4', // Dia dos Namorados (Brasil)
+            '07-22': 'aniversario_namorada.mp4', // Aniversário da namorada
+            '10-16': 'aniversario_meu.mp4' // Meu aniversário
+        };
 
-        function calculateExactMonths(startDate, currentDate) {
-            let months = (currentDate.getFullYear() - startDate.getFullYear()) * 12 + (currentDate.getMonth() - startDate.getMonth());
-            if (currentDate.getDate() < startDate.getDate()) {
-                months--;
-            }
-            return months;
-        }
-
-        function getNextAnniversaryDate(startDate, months) {
-            const nextAnniversary = new Date(startDate);
-            nextAnniversary.setMonth(startDate.getMonth() + months);
-            return nextAnniversary;
-        }
-
-        function updateCounters() {
+        function updateVideo() {
             const now = new Date();
-            const relMonths = calculateExactMonths(relationshipStart, now);
-            const nextAnniversary = getNextAnniversaryDate(relationshipStart, relMonths + 1);
+            const today = now.toISOString().slice(5, 10); // Formato MM-DD
+            const videoElement = document.getElementById('video-background');
+            const isCommemorativeDate = Object.keys(videos).includes(today);
 
-            const timeDiff = nextAnniversary - now;
-            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
-
-            const counter = document.getElementById('counter');
-            const secondCounter = document.getElementById('second-counter');
-            const textContent = document.getElementById('text-content');
-
-            counter.innerText = `${relMonths} meses`;
-            secondCounter.innerText = `${days} dias, ${hours} horas, ${minutes} minutos e ${seconds} segundos até o próximo mês`;
-        }
-
-        function loadText() {
-            fetch('texts.json')
-                .then(response => response.json())
-                .then(data => {
-                    const textElement = document.getElementById('text');
-                    textElement.innerHTML = data.secondMonthText;
-                })
-                .catch(error => console.error('Erro ao carregar o texto:', error));
-        }
-
-        document.getElementById('text-content').addEventListener('click', function() {
-            const textContent = document.getElementById('text-content');
-            const counter = document.getElementById('counter');
-            const secondCounter = document.getElementById('second-counter');
-
-            if (textContent.classList.contains('fullscreen')) {
-                textContent.classList.remove('fullscreen');
-                counter.style.display = 'block';
-                secondCounter.style.display = 'block';
+            // Verificar se a data é comemorativa e está no intervalo do dia atual
+            if (isCommemorativeDate && now.getHours() >= 0 && now.getHours() <= 23) {
+                videoElement.src = videos[today];
             } else {
-                textContent.classList.add('fullscreen');
-                counter.style.display = 'none';
-                secondCounter.style.display = 'none';
+                videoElement.src = 'padrao.mp4';
             }
-        });
+            videoElement.load();
+        }
 
-        setInterval(updateCounters, 1000);
-
-        loadText();
+        // Atualizar vídeo a cada mudança de dia
+        setInterval(updateVideo, 1000 * 60); // Atualiza a cada minuto
+        updateVideo(); // Atualiza imediatamente ao carregar a página
     </script>
 </body>
 </html>
