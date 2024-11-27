@@ -4,13 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Emoji Face (Enhanced)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       background: radial-gradient(circle, #ffcc4d, #f0a92e);
       overflow: hidden;
       height: 100vh;
-      font-family: sans-serif;
+      font-family: 'Roboto', sans-serif;
     }
 
     .emoji-container {
@@ -73,43 +74,15 @@
       left: 10%;
     }
 
-    .mouth {
+    .counter {
       position: absolute;
-      bottom: 20%;
+      top: 25%;
       left: 50%;
       transform: translateX(-50%);
-      width: 25vw;
-      height: 10vw;
-      background: black;
-      border-radius: 0 0 10vw 10vw;
-      transition: all 0.3s ease-in-out;
-    }
-
-    .tear {
-      position: absolute;
-      width: 5%;
-      height: 10%;
-      background: rgba(173, 216, 230, 0.8);
-      border-radius: 10px;
-      bottom: -20%;
-      left: 35%;
-      transform: scale(0);
-      display: none;
-    }
-
-    @keyframes tear-drop {
-      0% {
-        transform: scale(0);
-        opacity: 1;
-      }
-      50% {
-        transform: scale(1);
-        opacity: 0.7;
-      }
-      100% {
-        transform: scale(0);
-        opacity: 0;
-      }
+      font-size: 2rem;
+      color: black;
+      font-weight: 500;
+      z-index: 1; /* Coloca o contador sobre o emoji */
     }
 
     @media (max-width: 600px) {
@@ -117,19 +90,9 @@
         width: 20vw;
         height: 20vw;
       }
-      .mouth {
-        width: 30vw;
-        height: 15vw;
+      .counter {
+        font-size: 1.2rem;
       }
-    }
-
-    .counter {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      font-size: 16px;
-      color: black;
-      z-index: 1; /* Coloca o contador sobre o emoji */
     }
   </style>
 </head>
@@ -140,21 +103,16 @@
       <div class="eye left">
         <div class="pupil"></div>
         <div class="highlight"></div>
-        <div class="tear"></div>
       </div>
       <div class="eye right">
         <div class="pupil"></div>
         <div class="highlight"></div>
       </div>
-      <div class="mouth"></div>
     </div>
   </div>
 
   <script>
-    const face = document.querySelector('.face');
     const pupils = document.querySelectorAll('.pupil');
-    const mouth = document.querySelector('.mouth');
-    const eyes = document.querySelectorAll('.eye');
     const counter = document.getElementById('counter');
 
     const relationshipStart = new Date('2024-08-22T21:20:00');
