@@ -3,7 +3,7 @@ const pupils = document.querySelectorAll('.pupil');
 const mouth = document.querySelector('.mouth');
 const eyes = document.querySelectorAll('.eye');
 
-// Pupilas seguem o cursor
+
 document.addEventListener('mousemove', (event) => {
   const centerX = window.innerWidth / 2;
   const centerY = window.innerHeight / 2;
