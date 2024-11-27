@@ -171,6 +171,37 @@
             '10-16': 'aniversario_meu.mp4' // Meu aniversário
         };
 
+        const relationshipStart = new Date('2024-08-22T21:20:00');
+
+        function calculateExactMonths(startDate, currentDate) {
+            let months = (currentDate.getFullYear() - startDate.getFullYear()) * 12 + (currentDate.getMonth() - startDate.getMonth());
+            if (currentDate.getDate() < startDate.getDate()) {
+                months--;
+            }
+            return months;
+        }
+
+        function getNextAnniversaryDate(startDate, months) {
+            const nextAnniversary = new Date(startDate);
+            nextAnniversary.setMonth(startDate.getMonth() + months);
+            return nextAnniversary;
+        }
+
+        function updateCounters() {
+            const now = new Date();
+            const relMonths = calculateExactMonths(relationshipStart, now);
+            const nextAnniversary = getNextAnniversaryDate(relationshipStart, relMonths + 1);
+
+            const timeDiff = nextAnniversary - now;
+            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+            document.getElementById('counter').innerText = `${relMonths} meses`;
+            document.getElementById('second-counter').innerText = `${days} dias, ${hours} horas, ${minutes} minutos e ${seconds} segundos até o próximo mês`;
+        }
+
         function updateVideo() {
             const now = new Date();
             const today = now.toISOString().slice(5, 10); // Formato MM-DD
@@ -186,9 +217,10 @@
             videoElement.load();
         }
 
-        // Atualizar vídeo a cada mudança de dia
-        setInterval(updateVideo, 1000 * 60); // Atualiza a cada minuto
-        updateVideo(); // Atualiza imediatamente ao carregar a página
+        setInterval(() => {
+            updateCounters();
+            updateVideo();
+        }, 1000); // Atualiza tanto o contador quanto o vídeo a cada segundo
     </script>
 </body>
 </html>
