@@ -164,11 +164,9 @@
 
     <script>
         const videos = {
-            '01-01': 'ano_novo.mp4', // Ano Novo
-            '12-25': 'natal.mp4',    // Natal
-            '06-12': 'dia_dos_namorados.mp4', // Dia dos Namorados (Brasil)
-            '07-22': 'aniversario_namorada.mp4', // Aniversário da namorada
-            '10-16': 'aniversario_meu.mp4' // Meu aniversário
+            '11-27:12-24': 'loadnatal.mp4', // Vídeo de Natal começa dia 27 de novembro até 24 de dezembro
+            '12-25': 'natal.mp4',          // Natal, dia 25 de dezembro
+            '12-31:01-01': 'ano_novo.mp4', // Ano Novo, 31 de dezembro e 1º de janeiro
         };
 
         const relationshipStart = new Date('2024-08-22T21:20:00');
@@ -205,16 +203,25 @@
         function updateVideo() {
             const now = new Date();
             const today = now.toISOString().slice(5, 10); // Formato MM-DD
+            const currentHour = now.getHours();
             const videoElement = document.getElementById('video-background');
-            const isCommemorativeDate = Object.keys(videos).includes(today);
+            let selectedVideo = 'padrao.mp4';
 
-            // Verificar se a data é comemorativa e está no intervalo do dia atual
-            if (isCommemorativeDate && now.getHours() >= 0 && now.getHours() <= 23) {
-                videoElement.src = videos[today];
-            } else {
-                videoElement.src = 'padrao.mp4';
+            for (const [key, video] of Object.entries(videos)) {
+                const [start, end] = key.split(':');
+                const startDate = new Date(`${now.getFullYear()}-${start}`);
+                const endDate = new Date(`${now.getFullYear()}-${end}`);
+
+                if (startDate <= now && now <= endDate) {
+                    selectedVideo = video;
+                    break;
+                }
             }
-            videoElement.load();
+
+            if (videoElement.src !== selectedVideo) {
+                videoElement.src = selectedVideo;
+                videoElement.load();
+            }
         }
 
         setInterval(() => {
