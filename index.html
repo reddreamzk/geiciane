@@ -3,22 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contador</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <title>❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap">
     <style>
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
-            padding: 0;
-            background: radial-gradient(circle, #ffcc4d, #f0a92e);
+            padding: 20px;
+            background-color: #000;
             color: #ffffff;
             position: relative;
             overflow: hidden;
+        }
+
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .container {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            height: 100vh;
-            transition: background-color 0.5s ease;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
         }
 
         .counter, .second-counter {
@@ -26,7 +52,7 @@
             color: #fff;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
             padding: 15px;
-            margin: 10px;
+            margin: 20px;
             text-align: center;
             font-size: 22px;
             transition: transform 0.3s ease;
@@ -36,166 +62,107 @@
             transform: scale(1.05);
         }
 
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: absolute;
-            top: 5%;
-            z-index: 2;
-        }
-
-        .emoji-container {
-            position: absolute;
-            top: 15%;
-            width: 100vw;
-            height: 80vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: -1;
-        }
-
-        .face {
+        .text-content {
+            max-width: 800px;
+            text-align: justify;
+            font-size: 18px;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            margin: 20px;
+            font-family: 'Great Vibes', cursive;
+            font-size: 24px;
+            cursor: pointer;
             position: relative;
-            width: 50vw;
-            height: 50vw;
-            background: none;
+            z-index: 3;
+            transition: opacity 0.5s ease-in-out;
         }
 
-        .eye {
-            position: absolute;
-            width: 15vw;
-            height: 15vw;
-            background: white;
-            border-radius: 50%;
-            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            transition: transform 0.3s ease;
-        }
-
-        .eye.left {
-            top: 30%;
-            left: 20%;
-        }
-
-        .eye.right {
-            top: 30%;
-            right: 20%;
-        }
-
-        .pupil {
-            width: 50%;
-            height: 50%;
-            background: black;
-            border-radius: 50%;
-            transition: transform 0.2s ease-out;
-        }
-
-        .highlight {
-            position: absolute;
-            width: 20%;
-            height: 20%;
-            background: white;
-            border-radius: 50%;
+        .text-content.fullscreen {
+            position: fixed;
             top: 10%;
             left: 10%;
+            right: 10%;
+            bottom: 10%;
+            font-size: 32px;
+            max-width: none;
+            margin: 0;
+            z-index: 4;
+            overflow-y: auto;
         }
 
-        /* Animação dos olhos observando */
-        @keyframes eyeMovement {
-            0%, 100% {
-                transform: translate(0, 0);
-            }
-            25% {
-                transform: translate(10px, -10px);
-            }
-            50% {
-                transform: translate(-10px, 10px);
-            }
-            75% {
-                transform: translate(10px, 10px);
+        @media (max-width: 768px) {
+            .text-content {
+                font-size: 20px;
             }
         }
 
-        /* Efeito de brilho nos olhos */
-        .eye.bright .highlight {
-            animation: highlightGlow 0.5s infinite alternate;
+        .instagram-button {
+            width: 24px;
+            height: 24px;
+            padding: 0;
+            position: relative;
+            margin-right: 8px; 
         }
 
-        @keyframes highlightGlow {
-            0% {
-                transform: scale(1);
-                opacity: 0.8;
-            }
-            100% {
-                transform: scale(1.3);
-                opacity: 1;
-            }
+        .instagram-button img {
+            width: 100%;
+            height: 100%;
         }
 
-        /* Efeito de sono */
-        .zzz {
-            position: absolute;
-            left: 0;
-            font-size: 2rem;
-            color: #ffffff;
-            animation: zzzFloat 3s linear infinite;
+        .signature {
+            text-align: center;
+            font-family: 'Arial', sans-serif; 
+            font-size: 12px;
+            color: #fff;
+            margin-top: 5px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        @keyframes zzzFloat {
-            0% {
-                transform: translateY(0);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
+        .footer {
+            position: fixed;
+            bottom: 20px; /* bruno.snntss*/
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 5;
         }
 
-        /* Fase de noite, corpo e olhos */
-        .night {
-            background-color: #2e3b4e;
-        }
-
-        .night .eye {
-            background: #444;
-        }
-
-        .night .highlight {
-            display: none;
-        }
     </style>
 </head>
 <body>
+    
+    <video class="video-background" autoplay loop muted playsinline>
+        <source src="loop.mp4" type="video/mp4">
+        <source src="momentos.mov" type="video/quicktime"> 
+        Seu navegador não suporta vídeos em HTML5.
+    </video>
+
+    <div class="overlay"></div>
+
+    <audio id="background-audio" autoplay loop>
+        <source src="music.mp3" type="audio/mp3">
+        Seu navegador não suporta a tag de áudio.
+    </audio>
 
     <div class="container">
         <div class="counter" id="counter"></div>
         <div class="second-counter" id="second-counter"></div>
-    </div>
-
-    <div class="emoji-container">
-        <div class="face">
-            <div class="eye left">
-                <div class="pupil"></div>
-                <div class="highlight"></div>
-            </div>
-            <div class="eye right">
-                <div class="pupil"></div>
-                <div class="highlight"></div>
-            </div>
+        <div class="text-content" id="text-content">
+            <div class="text" id="text"></div>
         </div>
     </div>
 
-    <!-- Elementos Zzz flutuando -->
-    <div class="zzz" id="zzz1">Z</div>
-    <div class="zzz" id="zzz2">Z</div>
-    <div class="zzz" id="zzz3">Z</div>
+    <div class="footer">
+        <div class="signature">
+            <a href="https://www.instagram.com/bruno.snntss?igsh=ZzJidDh6eXF1dXFm&utm_source=qr" target="_blank" class="instagram-button">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+            </a>
+            © bruno.snntss 2024
+        </div>
+    </div>
 
     <script>
         const relationshipStart = new Date('2024-08-22T21:20:00');
@@ -228,44 +195,41 @@
 
             const counter = document.getElementById('counter');
             const secondCounter = document.getElementById('second-counter');
+            const textContent = document.getElementById('text-content');
 
             counter.innerText = `${relMonths} meses`;
             secondCounter.innerText = `${days} dias, ${hours} horas, ${minutes} minutos e ${seconds} segundos até o próximo mês`;
+        }
 
-            // Troca para "noite" após 18:00
-            const nightMode = now.getHours() >= 18;
-            if (nightMode) {
-                document.body.classList.add('night');
-                document.getElementById('zzz1').style.animationPlayState = 'running';
-                document.getElementById('zzz2').style.animationPlayState = 'running';
-                document.getElementById('zzz3').style.animationPlayState = 'running';
+        function loadText() {
+            fetch('texts.json')
+                .then(response => response.json())
+                .then(data => {
+                    const textElement = document.getElementById('text');
+                    textElement.innerHTML = data.secondMonthText;
+                })
+                .catch(error => console.error('Erro ao carregar o texto:', error));
+        }
+
+        document.getElementById('text-content').addEventListener('click', function() {
+            const textContent = document.getElementById('text-content');
+            const counter = document.getElementById('counter');
+            const secondCounter = document.getElementById('second-counter');
+
+            if (textContent.classList.contains('fullscreen')) {
+                textContent.classList.remove('fullscreen');
+                counter.style.display = 'block';
+                secondCounter.style.display = 'block';
             } else {
-                document.body.classList.remove('night');
-                document.getElementById('zzz1').style.animationPlayState = 'paused';
-                document.getElementById('zzz2').style.animationPlayState = 'paused';
-                document.getElementById('zzz3').style.animationPlayState = 'paused';
+                textContent.classList.add('fullscreen');
+                counter.style.display = 'none';
+                secondCounter.style.display = 'none';
             }
+        });
 
-                            // Efeito de observação
-                const eyes = document.querySelectorAll('.eye');
-                eyes.forEach((eye, index) => {
-                    if (index === 0) {  // Olho esquerdo
-                        eye.style.animation = 'eyeMovement 4s infinite';  // Movimentação constante para o olho esquerdo
-                    } else {  // Olho direito
-                        eye.style.animation = 'eyeMovement 4s infinite';  // Movimentação constante para o olho direito
-                    }
-                });
+        setInterval(updateCounters, 1000);
 
-                // Efeito de brilho nos olhos (quando os olhos estão olhando para o contador)
-                if (now.getSeconds() % 2 === 0) {  // Faz um efeito de brilho em intervalos
-                    eyes.forEach(eye => eye.classList.add('bright'));
-                } else {
-                    eyes.forEach(eye => eye.classList.remove('bright'));
-                }
-            }
-
-        setInterval(updateCounters, 1000);  // Atualiza os contadores a cada segundo
+        loadText();
     </script>
-
 </body>
 </html>
