@@ -1,166 +1,171 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Emoji Face (Enhanced)</title>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      background: radial-gradient(circle, #ffcc4d, #f0a92e);
-      overflow: hidden;
-      height: 100vh;
-      font-family: 'Instrument Sans', sans-serif; /* Usando a fonte fornecida */
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle, #ffcc4d, #f0a92e); /* Gradiente de fundo */
+            color: #ffffff;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-    .emoji-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: -1;
-    }
+        .counter, .second-counter {
+            font-family: 'Dancing Script', cursive;  /* Fonte usada no contador */
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);  /* Sombra do texto */
+            padding: 15px;
+            margin: 10px;
+            text-align: center;
+            font-size: 22px;  /* Tamanho da fonte */
+            transition: transform 0.3s ease;  /* Transição para efeito de hover */
+        }
 
-    .face {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-      background: none;
-    }
+        .counter:hover, .second-counter:hover {
+            transform: scale(1.05);  /* Efeito de zoom ao passar o mouse */
+        }
 
-    .eye {
-      position: absolute;
-      width: 15vw;
-      height: 15vw;
-      background: white;
-      border-radius: 50%;
-      box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: absolute;  /* Tornando a posição do contador fixa */
+            top: 5%;  /* Ajuste para ficar mais próximo ao topo */
+            z-index: 2;
+        }
 
-    .eye.left {
-      top: 35%;
-      left: 30%;
-    }
+        .emoji-container {
+            position: absolute;
+            top: 15%;  /* Ajustando para que o emoji não sobreponha o contador */
+            width: 100vw;
+            height: 80vh; /* Ajuste para que o emoji ocupe o restante da tela, sem afetar o contador */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: -1; /* Coloca o emoji abaixo do contador */
+        }
 
-    .eye.right {
-      top: 35%;
-      right: 30%;
-    }
+        .face {
+            position: relative;
+            width: 50vw;
+            height: 50vw;
+            background: none;
+        }
 
-    .pupil {
-      width: 50%;
-      height: 50%;
-      background: black;
-      border-radius: 50%;
-      transition: transform 0.2s ease-out;
-    }
+        .eye {
+            position: absolute;
+            width: 15vw;
+            height: 15vw;
+            background: white;
+            border-radius: 50%;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
 
-    .highlight {
-      position: absolute;
-      width: 20%;
-      height: 20%;
-      background: white;
-      border-radius: 50%;
-      top: 10%;
-      left: 10%;
-    }
+        .eye.left {
+            top: 30%;  /* Ajustando a posição dos olhos para ficarem separados */
+            left: 20%;
+        }
 
-    .counter {
-      position: absolute;
-      top: 10%; /* Alterado para ficar mais próximo do topo */
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 2rem;
-      color: black;
-      font-weight: 500;
-      z-index: 1;
-      font-family: 'Instrument Sans', sans-serif; /* Apenas a fonte fornecida */
-      letter-spacing: 1px;
-      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-    }
+        .eye.right {
+            top: 30%;
+            right: 20%;
+        }
 
-    @media (max-width: 600px) {
-      .eye {
-        width: 20vw;
-        height: 20vw;
-      }
-      .counter {
-        font-size: 1.2rem;
-      }
-    }
-  </style>
+        .pupil {
+            width: 50%;
+            height: 50%;
+            background: black;
+            border-radius: 50%;
+            transition: transform 0.2s ease-out;
+        }
+
+        .highlight {
+            position: absolute;
+            width: 20%;
+            height: 20%;
+            background: white;
+            border-radius: 50%;
+            top: 10%;
+            left: 10%;
+        }
+
+    </style>
 </head>
 <body>
-  <div class="counter" id="counter"></div>
-  <div class="emoji-container">
-    <div class="face">
-      <div class="eye left">
-        <div class="pupil"></div>
-        <div class="highlight"></div>
-      </div>
-      <div class="eye right">
-        <div class="pupil"></div>
-        <div class="highlight"></div>
-      </div>
+
+    <!-- Contador acima do emoji -->
+    <div class="container">
+        <div class="counter" id="counter"></div>
+        <div class="second-counter" id="second-counter"></div>
     </div>
-  </div>
 
-  <script>
-    const pupils = document.querySelectorAll('.pupil');
-    const counter = document.getElementById('counter');
+    <!-- Emoji como fundo da página -->
+    <div class="emoji-container">
+        <div class="face">
+            <div class="eye left">
+                <div class="pupil"></div>
+                <div class="highlight"></div>
+            </div>
+            <div class="eye right">
+                <div class="pupil"></div>
+                <div class="highlight"></div>
+            </div>
+        </div>
+    </div>
 
-    const relationshipStart = new Date('2024-08-22T21:20:00');
+    <script>
+        const relationshipStart = new Date('2024-08-22T21:20:00');
+        const secondMonthDate = new Date('2024-10-22T21:20:00');
 
-    function calculateExactMonths(startDate, currentDate) {
-      let months = (currentDate.getFullYear() - startDate.getFullYear()) * 12 + (currentDate.getMonth() - startDate.getMonth());
-      if (currentDate.getDate() < startDate.getDate()) {
-        months--;
-      }
-      return months;
-    }
+        function calculateExactMonths(startDate, currentDate) {
+            let months = (currentDate.getFullYear() - startDate.getFullYear()) * 12 + (currentDate.getMonth() - startDate.getMonth());
+            if (currentDate.getDate() < startDate.getDate()) {
+                months--;
+            }
+            return months;
+        }
 
-    function getNextAnniversaryDate(startDate, months) {
-      const nextAnniversary = new Date(startDate);
-      nextAnniversary.setMonth(startDate.getMonth() + months);
-      return nextAnniversary;
-    }
+        function getNextAnniversaryDate(startDate, months) {
+            const nextAnniversary = new Date(startDate);
+            nextAnniversary.setMonth(startDate.getMonth() + months);
+            return nextAnniversary;
+        }
 
-    function updateCounter() {
-      const now = new Date();
-      const relMonths = calculateExactMonths(relationshipStart, now);
-      const nextAnniversary = getNextAnniversaryDate(relationshipStart, relMonths + 1);
+        function updateCounters() {
+            const now = new Date();
+            const relMonths = calculateExactMonths(relationshipStart, now);
+            const nextAnniversary = getNextAnniversaryDate(relationshipStart, relMonths + 1);
 
-      const timeDiff = nextAnniversary - now;
-      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+            const timeDiff = nextAnniversary - now;
+            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
 
-      counter.innerText = `${relMonths} meses | Próximo mês em: ${days}d ${hours}h ${minutes}m ${seconds}s`;
-    }
+            const counter = document.getElementById('counter');
+            const secondCounter = document.getElementById('second-counter');
 
-    // Pupilas seguem o cursor
-    document.addEventListener('mousemove', (event) => {
-      const centerX = window.innerWidth / 2;
-      const centerY = window.innerHeight / 2;
-      const angle = Math.atan2(event.clientY - centerY, event.clientX - centerX);
-      const distance = Math.min(30, Math.hypot(event.clientX - centerX, event.clientY - centerY) / 10);
+            counter.innerText = `${relMonths} meses`;
+            secondCounter.innerText = `${days} dias, ${hours} horas, ${minutes} minutos e ${seconds} segundos até o próximo mês`;
+        }
 
-      pupils.forEach(pupil => {
-        pupil.style.transform = `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
-      });
-    });
+        setInterval(updateCounters, 1000);  // Atualiza os contadores a cada segundo
+    </script>
 
-    setInterval(updateCounter, 1000);
-  </script>
 </body>
 </html>
