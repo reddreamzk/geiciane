@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -123,20 +123,18 @@
 
         .footer {
             position: fixed;
-            bottom: 20px; /* bruno.snntss*/
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
             z-index: 5;
         }
-
     </style>
 </head>
 <body>
     
-    <video class="video-background" autoplay loop muted playsinline>
-        <source src="loop.mp4" type="video/mp4">
-        <source src="momentos.mov" type="video/quicktime"> 
+    <video class="video-background" autoplay loop muted playsinline id="video-background">
+        <source src="padrao.mp4" type="video/mp4">
         Seu navegador não suporta vídeos em HTML5.
     </video>
 
@@ -165,8 +163,17 @@
     </div>
 
     <script>
+        const videos = {
+ '11-27:12-24': 'loadnatal.mp4', 
+ '12-25': 'natal.mp4',        
+ '12-31:01-01': 'ano_novo.mp4',
+ '04-20' : 'pascoa.mp4', 
+ '05-17': 'dia_dos_namorados.mp4',
+ '07_22' : 'aniversário_amor.mp4',
+ '10-16' : 'aniversário_bruno.mp4',
+        };
+
         const relationshipStart = new Date('2024-08-22T21:20:00');
-        const secondMonthDate = new Date('2024-10-22T21:20:00');
 
         function calculateExactMonths(startDate, currentDate) {
             let months = (currentDate.getFullYear() - startDate.getFullYear()) * 12 + (currentDate.getMonth() - startDate.getMonth());
@@ -193,44 +200,42 @@
             const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
 
-            const counter = document.getElementById('counter');
-            const secondCounter = document.getElementById('second-counter');
-            const textContent = document.getElementById('text-content');
-
-            counter.innerText = `${relMonths} meses`;
-            secondCounter.innerText = `${days} dias, ${hours} horas, ${minutes} minutos e ${seconds} segundos até o próximo mês`;
+            document.getElementById('counter').innerText = `${relMonths} meses`;
+            document.getElementById('second-counter').innerText = `${days} dias, ${hours} horas, ${minutes} minutos e ${seconds} segundos até o próximo mês`;
         }
 
-        function loadText() {
-            fetch('texts.json')
-                .then(response => response.json())
-                .then(data => {
-                    const textElement = document.getElementById('text');
-                    textElement.innerHTML = data.secondMonthText;
-                })
-                .catch(error => console.error('Erro ao carregar o texto:', error));
-        }
+        function updateVideo() {
+            const now = new Date();
+            const videoElement = document.getElementById('video-background');
+            const basePath = ''; 
 
-        document.getElementById('text-content').addEventListener('click', function() {
-            const textContent = document.getElementById('text-content');
-            const counter = document.getElementById('counter');
-            const secondCounter = document.getElementById('second-counter');
+            let selectedVideo = 'padrao.mp4';
 
-            if (textContent.classList.contains('fullscreen')) {
-                textContent.classList.remove('fullscreen');
-                counter.style.display = 'block';
-                secondCounter.style.display = 'block';
-            } else {
-                textContent.classList.add('fullscreen');
-                counter.style.display = 'none';
-                secondCounter.style.display = 'none';
+            for (const [key, video] of Object.entries(videos)) {
+                const [start, end] = key.split(':');
+                const startDate = new Date(`${now.getFullYear()}-${start}`);
+                const endDate = new Date(`${now.getFullYear()}-${end}`);
+
+                if (startDate <= now && now <= endDate) {
+                    selectedVideo = video;
+                    break;
+                }
             }
-        });
 
-        setInterval(updateCounters, 1000);
+            const newVideoSrc = basePath + selectedVideo;
 
-        loadText();
+            if (!videoElement.src.includes(newVideoSrc)) {
+                videoElement.src = newVideoSrc;
+                videoElement.load();
+            }
+        }
+
+        setInterval(() => {
+            updateCounters();
+            updateVideo();
+        }, 1000);
     </script>
 </body>
 </html>
 
+É possível adicionar um sistema de widgets?
