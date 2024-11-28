@@ -62,77 +62,25 @@
             transform: scale(1.05);
         }
 
-        .text-content {
-            max-width: 800px;
-            text-align: justify;
-            font-size: 18px;
-            color: #fff;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-            padding: 15px;
-            margin: 20px;
-            font-family: 'Great Vibes', cursive;
-            font-size: 24px;
+        .instagram-button {
+            width: 24px;
+            height: 24px;
+            padding: 0;
+            position: relative;
+            margin-right: 8px; 
         }
 
-        .text-editor {
+        .instagram-button img {
             width: 100%;
-            margin-top: 20px;
-            padding: 10px;
-            font-size: 18px;
-            border-radius: 5px;
-            border: none;
-            outline: none;
-            resize: none;
-        }
-
-        .chat-widget {
-            position: fixed;
-            bottom: 10%;
-            right: 5%;
-            width: 300px;
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid #444;
-            border-radius: 8px;
-            padding: 10px;
-            color: white;
-            z-index: 5;
-        }
-
-        .chat-messages {
-            height: 150px;
-            overflow-y: auto;
-            margin-bottom: 10px;
-            border: 1px solid #444;
-            border-radius: 5px;
-            padding: 5px;
-            background: #111;
-        }
-
-        .chat-input {
-            width: calc(100% - 60px);
-            padding: 5px;
-            margin-right: 10px;
-            border-radius: 5px;
-            border: 1px solid #444;
-            background: #222;
-            color: white;
-        }
-
-        .send-button {
-            padding: 5px 10px;
-            background: #444;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            color: white;
+            height: 100%;
         }
 
         .signature {
             text-align: center;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Arial', sans-serif; 
             font-size: 12px;
             color: #fff;
-            margin-top: 5px;
+            margin-top: 5px; 
             display: flex;
             align-items: center;
             justify-content: center;
@@ -146,10 +94,58 @@
             text-align: center;
             z-index: 5;
         }
+
+        /* Estilo do chat */
+        #chat-icon {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+            cursor: pointer;
+        }
+
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            height: 400px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            font-size: 14px;
+        }
+
+        .chat-input {
+            border: none;
+            padding: 10px;
+            font-size: 14px;
+            width: calc(100% - 80px);
+            margin: 0;
+            border-radius: 0 0 0 10px;
+        }
+
+        .send-button {
+            background: #28a745;
+            border: none;
+            color: white;
+            padding: 10px;
+            width: 80px;
+            border-radius: 0 0 10px 0;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
-    
     <video class="video-background" autoplay loop muted playsinline id="video-background">
         <source src="padrao.mp4" type="video/mp4">
         Seu navegador não suporta vídeos em HTML5.
@@ -165,46 +161,113 @@
     <div class="container">
         <div class="counter" id="counter"></div>
         <div class="second-counter" id="second-counter"></div>
-        <div class="text-content" id="text-content"></div>
-        <textarea class="text-editor" id="text-editor" placeholder="Edite o recado aqui..."></textarea>
-    </div>
-
-    <div class="chat-widget">
-        <div class="chat-messages" id="chat-messages"></div>
-        <input type="text" class="chat-input" id="chat-input" placeholder="Digite sua mensagem...">
-        <button class="send-button" id="send-button">Enviar</button>
     </div>
 
     <div class="footer">
         <div class="signature">
-            <a href="https://www.instagram.com/bruno.snntss?igsh=ZzJidDh6eXF1dXFm&utm_source=qr" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" width="24" height="24">
+            <a href="https://www.instagram.com/bruno.snntss?igsh=ZzJidDh6eXF1dXFm&utm_source=qr" target="_blank" class="instagram-button">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
             </a>
             © bruno.snntss 2024
         </div>
     </div>
 
+    <!-- Ícone de Chat -->
+    <div id="chat-icon">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="Chat" width="50" height="50">
+    </div>
+
+    <!-- Janela de Chat -->
+    <div class="chat-widget" id="chat-widget" style="display: none;">
+        <div class="chat-messages" id="chat-messages"></div>
+        <input type="text" class="chat-input" id="chat-input" placeholder="Digite sua mensagem...">
+        <button class="send-button" id="send-button">Enviar</button>
+    </div>
+
     <script>
-        const textContent = document.getElementById('text-content');
-        const textEditor = document.getElementById('text-editor');
+        const videos = {
+            '11-27:12-24': 'loadnatal.mp4',
+            '12-25': 'natal.mp4',
+            '12-31:01-01': 'ano_novo.mp4',
+            '04-20': 'pascoa.mp4',
+            '05-17': 'dia_dos_namorados.mp4',
+            '07-22': 'aniversário_amor.mp4',
+            '10-16': 'aniversário_bruno.mp4',
+        };
+
+        const relationshipStart = new Date('2024-08-22T21:20:00');
+
+        function calculateExactMonths(startDate, currentDate) {
+            let months = (currentDate.getFullYear() - startDate.getFullYear()) * 12 + (currentDate.getMonth() - startDate.getMonth());
+            if (currentDate.getDate() < startDate.getDate()) {
+                months--;
+            }
+            return months;
+        }
+
+        function getNextAnniversaryDate(startDate, months) {
+            const nextAnniversary = new Date(startDate);
+            nextAnniversary.setMonth(startDate.getMonth() + months);
+            return nextAnniversary;
+        }
+
+        function updateCounters() {
+            const now = new Date();
+            const relMonths = calculateExactMonths(relationshipStart, now);
+            const nextAnniversary = getNextAnniversaryDate(relationshipStart, relMonths + 1);
+
+            const timeDiff = nextAnniversary - now;
+            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+            document.getElementById('counter').innerText = `${relMonths} meses`;
+            document.getElementById('second-counter').innerText = `${days} dias, ${hours} horas, ${minutes} minutos e ${seconds} segundos até o próximo mês`;
+        }
+
+        function updateVideo() {
+            const now = new Date();
+            const videoElement = document.getElementById('video-background');
+            const basePath = '';
+
+            let selectedVideo = 'padrao.mp4';
+
+            for (const [key, video] of Object.entries(videos)) {
+                const [start, end] = key.split(':');
+                const startDate = new Date(`${now.getFullYear()}-${start}`);
+                const endDate = new Date(`${now.getFullYear()}-${end}`);
+
+                if (startDate <= now && now <= endDate) {
+                    selectedVideo = video;
+                    break;
+                }
+            }
+
+            const newVideoSrc = basePath + selectedVideo;
+
+            if (!videoElement.src.includes(newVideoSrc)) {
+                videoElement.src = newVideoSrc;
+                videoElement.load();
+            }
+        }
+
+        setInterval(() => {
+            updateCounters();
+            updateVideo();
+        }, 1000);
+
+        // Chat Widget Lógica
+        const chatIcon = document.getElementById('chat-icon');
+        const chatWidget = document.getElementById('chat-widget');
         const chatMessages = document.getElementById('chat-messages');
         const chatInput = document.getElementById('chat-input');
         const sendButton = document.getElementById('send-button');
 
-        // Load and Save Recado
-        const savedText = localStorage.getItem('recado');
-        if (savedText) {
-            textContent.innerText = savedText;
-            textEditor.value = savedText;
-        }
-
-        textEditor.addEventListener('input', () => {
-            const newText = textEditor.value;
-            textContent.innerText = newText;
-            localStorage.setItem('recado', newText);
+        chatIcon.addEventListener('click', () => {
+            chatWidget.style.display = chatWidget.style.display === 'none' ? 'block' : 'none';
         });
 
-        // Simple Chat System
         sendButton.addEventListener('click', () => {
             const message = chatInput.value.trim();
             if (message) {
@@ -213,6 +276,12 @@
                 chatMessages.appendChild(messageElement);
                 chatInput.value = '';
                 chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!chatWidget.contains(event.target) && event.target !== chatIcon) {
+                chatWidget.style.display = 'none';
             }
         });
     </script>
