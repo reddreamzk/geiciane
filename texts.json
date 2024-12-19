@@ -1,3 +1,18 @@
-{
-    "secondMonthText": "❤️🥹"
+ {
+    "11-27:12-24": {
+        "text": "Que a magia do Natal esteja com você!",
+        "font": "'Great Vibes', cursive"
+    },
+    "12-25": {
+        "text": "Feliz Natal! ❤️",
+        "font": "'Dancing Script', cursive"
+    },
+    "12-31:01-01": {
+        "text": "Feliz Ano Novo! 🎉",
+        "font": "'Instrument Sans', sans-serif"
+    },
+    "04-20": {
+        "text": "Feliz Páscoa! 🐰",
+        "font": "'JetBrains Mono', monospace"
+    }
 }
