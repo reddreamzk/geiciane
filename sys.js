@@ -1,17 +1,16 @@
-// Lógica JavaScript separada para sys.js
+// sys.js
 
 const videos = {
     '11-27:12-24': 'loadnatal.mp4',
     '12-25': 'natal.mp4',
     '12-31:01-01': 'ano_novo.mp4',
-    '04-20': 'pascoa.mp4',
+    '04-20' : 'pascoa.mp4',
     '05-17': 'dia_dos_namorados.mp4',
-    '07-22': 'aniversário_amor.mp4',
-    '10-16': 'aniversário_bruno.mp4',
+    '07_22' : 'aniversario_amor.mp4',
+    '10-16' : 'aniversario_bruno.mp4',
 };
 
 const relationshipStart = new Date('2024-08-22T21:20:00');
-const texts = {}; // Para armazenar textos carregados do JSON
 
 function calculateExactMonths(startDate, currentDate) {
     let months = (currentDate.getFullYear() - startDate.getFullYear()) * 12 + (currentDate.getMonth() - startDate.getMonth());
@@ -68,46 +67,19 @@ function updateVideo() {
     }
 }
 
-function loadTexts() {
-    fetch('text.json')
-        .then(response => response.json())
-        .then(data => {
-            Object.assign(texts, data);
-            updateText();
-        })
-        .catch(error => console.error('Erro ao carregar textos:', error));
-}
-
 function updateText() {
     const now = new Date();
-    const dynamicTextElement = document.getElementById('dynamic-text');
-    let selectedText = texts.default || '';
+    const textElement = document.getElementById('text-content');
 
-    // Verificando o texto especial para o dia 22 de cada mês
     if (now.getDate() === 22) {
-        selectedText = texts["22"] ? `<p style="font-family: ${texts["22"].font};">${texts["22"].text}</p>` : '';
+        textElement.innerHTML = '<p>Texto personalizado para o dia 22!</p>';
+    } else {
+        textElement.innerHTML = '<p>Texto padrão.</p>';
     }
-
-    for (const [key, textData] of Object.entries(texts)) {
-        const [start, end] = key.split(':');
-        const startDate = new Date(`${now.getFullYear()}-${start}`);
-        const endDate = new Date(`${now.getFullYear()}-${end}`);
-
-        if (startDate <= now && now <= endDate) {
-            selectedText = `<p style="font-family: ${textData.font};">${textData.text}</p>`;
-            break;
-        }
-    }
-
-    dynamicTextElement.innerHTML = selectedText;
 }
 
-// Executando as atualizações a cada segundo
 setInterval(() => {
     updateCounters();
     updateVideo();
     updateText();
 }, 1000);
-
-// Carregando os textos ao inicializar a página
-loadTexts();
