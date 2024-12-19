@@ -5,19 +5,18 @@ self.addEventListener('install', function(event) {
                 '/',
                 '/index.html',
                 '/manifest.json',
-                '/momentos.mp4',
+                '/padrao.mp4',
+                '/loadnatal.mp4',
+                '/natal.mp4',
+                '/ano_novo.mp4',
+                '/pascoa.mp4',
+                '/dia_dos_namorados.mp4',
+                '/aniversário_amor.mp4',
+                '/aniversário_bruno.mp4',
                 '/music.mp3',
                 '/icons/icon-192x192.png',
                 '/icons/icon-512x512.png'
             ]);
-        })
-    );
-});
-
-self.addEventListener('fetch', function(event) {
-    event.respondWith(
-        caches.match(event.request).then(function(response) {
-            return response || fetch(event.request);
         })
     );
 });
