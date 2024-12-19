@@ -1,4 +1,8 @@
- {
+{
+    "default": {
+        "text": "Bem-vindo!",
+        "font": "'Arial', sans-serif"
+    },
     "11-27:12-24": {
         "text": "Que a magia do Natal esteja com você!",
         "font": "'Great Vibes', cursive"
@@ -14,5 +18,9 @@
     "04-20": {
         "text": "Feliz Páscoa! 🐰",
         "font": "'JetBrains Mono', monospace"
+    },
+    "22": {
+        "text": "Texto especial para o dia 22 de cada mês.",
+        "font": "'Dancing Script', cursive"
     }
 }
