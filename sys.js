@@ -74,7 +74,7 @@ function updateText() {
     if (now.getDate() === 22) {
         textElement.innerHTML = '<p>Texto personalizado para o dia 22!</p>';
     } else {
-        textElement.innerHTML = '<p>Texto padrão.</p>';
+        textElement.innerHTML = '<p>🧸</p>';
     }
 }
 
