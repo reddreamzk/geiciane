@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>❤️</title>
     <link rel="manifest" href="manifest.json">
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Great+Vibes&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -63,38 +63,18 @@
             transform: scale(1.05);
         }
 
-        .text-content {
-            max-width: 800px;
-            text-align: justify;
-            font-size: 18px;
+        .dynamic-text {
+            margin-top: 20px;
+            padding: 15px;
+            text-align: center;
             color: #fff;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-            padding: 15px;
-            margin: 20px;
-            font-family: 'Great Vibes', cursive;
-            font-size: 24px;
-            cursor: pointer;
-            position: relative;
-            z-index: 3;
-            transition: opacity 0.5s ease-in-out;
-        }
-
-        .text-content.fullscreen {
-            position: fixed;
-            top: 10%;
-            left: 10%;
-            right: 10%;
-            bottom: 10%;
-            font-size: 32px;
-            max-width: none;
-            margin: 0;
-            z-index: 4;
-            overflow-y: auto;
+            font-size: 18px;
         }
 
         @media (max-width: 768px) {
-            .text-content {
-                font-size: 20px;
+            .dynamic-text {
+                font-size: 16px;
             }
         }
 
@@ -149,9 +129,7 @@
     <div class="container">
         <div class="counter" id="counter"></div>
         <div class="second-counter" id="second-counter"></div>
-        <div class="text-content" id="text-content">
-            <div class="text" id="text"></div>
-        </div>
+        <div class="dynamic-text" id="dynamic-text"></div>
     </div>
 
     <div class="footer">
@@ -165,16 +143,17 @@
 
     <script>
         const videos = {
- '11-27:12-24': 'loadnatal.mp4', 
- '12-25': 'natal.mp4',        
- '12-31:01-01': 'ano_novo.mp4',
- '04-20' : 'pascoa.mp4', 
- '05-17': 'dia_dos_namorados.mp4',
- '07_22' : 'aniversário_amor.mp4',
- '10-16' : 'aniversário_bruno.mp4',
+            '11-27:12-24': 'loadnatal.mp4',
+            '12-25': 'natal.mp4',
+            '12-31:01-01': 'ano_novo.mp4',
+            '04-20': 'pascoa.mp4',
+            '05-17': 'dia_dos_namorados.mp4',
+            '07-22': 'aniversário_amor.mp4',
+            '10-16': 'aniversário_bruno.mp4',
         };
 
         const relationshipStart = new Date('2024-08-22T21:20:00');
+        const texts = {}; // Para armazenar textos carregados do JSON
 
         function calculateExactMonths(startDate, currentDate) {
             let months = (currentDate.getFullYear() - startDate.getFullYear()) * 12 + (currentDate.getMonth() - startDate.getMonth());
@@ -231,11 +210,42 @@
             }
         }
 
+        function loadTexts() {
+            fetch('text.json')
+                .then(response => response.json())
+                .then(data => {
+                    Object.assign(texts, data);
+                    updateText();
+                })
+                .catch(error => console.error('Erro ao carregar textos:', error));
+        }
+
+        function updateText() {
+            const now = new Date();
+            const dynamicTextElement = document.getElementById('dynamic-text');
+            let selectedText = 'Bem-vindo!';
+
+            for (const [key, textData] of Object.entries(texts)) {
+                const [start, end] = key.split(':');
+                const startDate = new Date(`${now.getFullYear()}-${start}`);
+                const endDate = new Date(`${now.getFullYear()}-${end}`);
+
+                if (startDate <= now && now <= endDate) {
+                    selectedText = `<p style="font-family: ${textData.font};">${textData.text}</p>`;
+                    break;
+                }
+            }
+
+            dynamicTextElement.innerHTML = selectedText;
+        }
+
         setInterval(() => {
             updateCounters();
             updateVideo();
+            updateText();
         }, 1000);
+
+        loadTexts();
     </script>
 </body>
 </html>
-
