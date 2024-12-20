@@ -2,7 +2,7 @@
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
-    padding: 20px;
+    padding: 0; /* Remover padding */
     background-color: #000;
     color: #ffffff;
     position: relative;
@@ -38,6 +38,7 @@ body {
     justify-content: center;
     position: relative;
     z-index: 2;
+    height: 100vh; /* Ocupa toda a altura da tela */
 }
 
 .counter, .second-counter {
@@ -73,7 +74,7 @@ body {
 
 .text-content.fullscreen {
     position: fixed;
-    top: 10%;
+    top: 0; /* Ajustado para começar no topo */
     left: 10%;
     right: 10%;
     bottom: 10%;
