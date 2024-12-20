@@ -3,7 +3,7 @@
   "short_name": "🧸",
   "start_url": "https://verstappen1on.github.io/geiciane/index.html",
   "display": "fullscreen", 
-  "orientation": "landscape",
+  "orientation": "portrait",
   "background_color": "#ffffff",
   "theme_color": "#000000",
   "icons": [
