@@ -2,12 +2,11 @@
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
-    padding: 0;
+    padding: 20px;
     background-color: #000;
     color: #ffffff;
     position: relative;
-    overflow: hidden;  /* Impede rolagem */
-    height: 100vh;     /* Ocupa toda a altura da tela */
+    overflow: hidden;
 }
 
 .video-background {
@@ -39,8 +38,6 @@ body {
     justify-content: center;
     position: relative;
     z-index: 2;
-    height: 100vh;  /* Ocupa toda a altura da tela */
-    width: 100%;    /* Ocupa toda a largura */
 }
 
 .counter, .second-counter {
@@ -76,16 +73,15 @@ body {
 
 .text-content.fullscreen {
     position: fixed;
-    top: 0; /* Ajustado para começar no topo */
-    left: 0; /* Ocupa toda a largura */
-    right: 0; /* Ocupa toda a largura */
-    bottom: 0; /* Ocupa toda a altura */
+    top: 10%;
+    left: 10%;
+    right: 10%;
+    bottom: 10%;
     font-size: 32px;
     max-width: none;
     margin: 0;
     z-index: 4;
     overflow-y: auto;
-    padding: 20px; /* Adiciona padding para não colar nas bordas */
 }
 
 .instagram-button {
