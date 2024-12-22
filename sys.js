@@ -72,7 +72,7 @@ function updateText() {
     const textElement = document.getElementById('text-content');
 
     if (now.getDate() === 22) {
-        textElement.innerHTML = '<p>Texto personalizado para o dia 22!</p>';
+        textElement.innerHTML = '<p>Você é incrível ❤️</p>';
     } else {
         textElement.innerHTML = '<p>Texto padrão.</p>';
     }
