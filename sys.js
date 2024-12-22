@@ -74,7 +74,7 @@ function updateText() {
     if (now.getDate() === 22) {
         textElement.innerHTML = '<p>Você é incrível ❤️</p>';
     } else {
-        textElement.innerHTML = '<p>Texto padrão.</p>';
+        textElement.innerHTML = '<p>Organizando...</p>';
     }
 }
 
