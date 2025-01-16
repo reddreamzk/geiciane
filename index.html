@@ -2,25 +2,28 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <link rel="manifest" href="manifest.json">
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Great+Vibes&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="layout.css">
+    <title>Página com Vídeo de Fundo</title>
 </head>
 <body>
-    
+    <!-- Vídeo Único de Fundo -->
     <video class="video-background" autoplay loop muted playsinline id="video-background">
-        <source src="padrao.mp4" type="video/mp4">
+        <source src="video.mp4" type="video/mp4">
         Seu navegador não suporta vídeos em HTML5.
     </video>
 
     <div class="overlay"></div>
 
+    <!-- Música de Fundo -->
     <audio id="background-audio" autoplay loop>
         <source src="music.mp3" type="audio/mp3">
         Seu navegador não suporta a tag de áudio.
     </audio>
 
+    <!-- Contadores e Mensagens -->
     <div class="container">
         <div class="counter" id="counter"></div>
         <div class="second-counter" id="second-counter"></div>
@@ -29,6 +32,7 @@
         </div>
     </div>
 
+    <!-- Rodapé -->
     <div class="footer">
         <div class="signature">
             <a href="https://www.instagram.com/bruno.snntss?igsh=ZzJidDh6eXF1dXFm&utm_source=qr" target="_blank" class="instagram-button">
