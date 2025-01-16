@@ -34,7 +34,7 @@ function atualizarContadores() {
 function atualizarVideo() {
     const videoElement = document.getElementById('video-background');
     const caminhoBase = ''; // Defina o caminho base do vídeo, se necessário.
-    const videoUnico = 'video_unico.mp4'; // Substitua pelo nome do seu vídeo.
+    const videoUnico = 'video.mp4'; // Substitua pelo nome do seu vídeo.
 
     const novoVideoSrc = caminhoBase + videoUnico;
 
