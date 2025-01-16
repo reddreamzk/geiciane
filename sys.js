@@ -1,85 +1,63 @@
 // sys.js
 
-const videos = {
-    '11-27:12-24': 'loadnatal.mp4',
-    '12-25': 'natal.mp4',
-    '12-31:01-01': 'ano_novo.mp4',
-    '04-20' : 'pascoa.mp4',
-    '05-17': 'dia_dos_namorados.mp4',
-    '07_22' : 'aniversario_amor.mp4',
-    '10-16' : 'aniversario_bruno.mp4',
-};
+const inicioRelacionamento = new Date('2024-08-22T21:20:00');
 
-const relationshipStart = new Date('2024-08-22T21:20:00');
-
-function calculateExactMonths(startDate, currentDate) {
-    let months = (currentDate.getFullYear() - startDate.getFullYear()) * 12 + (currentDate.getMonth() - startDate.getMonth());
-    if (currentDate.getDate() < startDate.getDate()) {
-        months--;
+function calcularMesesExatos(dataInicio, dataAtual) {
+    let meses = (dataAtual.getFullYear() - dataInicio.getFullYear()) * 12 + (dataAtual.getMonth() - dataInicio.getMonth());
+    if (dataAtual.getDate() < dataInicio.getDate()) {
+        meses--;
     }
-    return months;
+    return meses;
 }
 
-function getNextAnniversaryDate(startDate, months) {
-    const nextAnniversary = new Date(startDate);
-    nextAnniversary.setMonth(startDate.getMonth() + months);
-    return nextAnniversary;
+function calcularProximoAniversario(dataInicio, meses) {
+    const proximoAniversario = new Date(dataInicio);
+    proximoAniversario.setMonth(dataInicio.getMonth() + meses);
+    return proximoAniversario;
 }
 
-function updateCounters() {
-    const now = new Date();
-    const relMonths = calculateExactMonths(relationshipStart, now);
-    const nextAnniversary = getNextAnniversaryDate(relationshipStart, relMonths + 1);
+function atualizarContadores() {
+    const agora = new Date();
+    const mesesRelacionamento = calcularMesesExatos(inicioRelacionamento, agora);
+    const proximoAniversario = calcularProximoAniversario(inicioRelacionamento, mesesRelacionamento + 1);
 
-    const timeDiff = nextAnniversary - now;
-    const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+    const diferencaTempo = proximoAniversario - agora;
+    const dias = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24));
+    const horas = Math.floor((diferencaTempo % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutos = Math.floor((diferencaTempo % (1000 * 60 * 60)) / (1000 * 60));
+    const segundos = Math.floor((diferencaTempo % (1000 * 60)) / 1000);
 
-    document.getElementById('counter').innerText = `${relMonths} meses`;
-    document.getElementById('second-counter').innerText = `${days} dias, ${hours} horas, ${minutes} minutos e ${seconds} segundos até o próximo mês`;
+    document.getElementById('counter').innerText = `${mesesRelacionamento} meses`;
+    document.getElementById('second-counter').innerText = `${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos até o próximo mês`;
 }
 
-function updateVideo() {
-    const now = new Date();
+function atualizarVideo() {
     const videoElement = document.getElementById('video-background');
-    const basePath = ''; 
+    const caminhoBase = ''; // Defina o caminho base do vídeo, se necessário.
+    const videoUnico = 'video_unico.mp4'; // Substitua pelo nome do seu vídeo.
 
-    let selectedVideo = 'padrao.mp4';
+    const novoVideoSrc = caminhoBase + videoUnico;
 
-    for (const [key, video] of Object.entries(videos)) {
-        const [start, end] = key.split(':');
-        const startDate = new Date(`${now.getFullYear()}-${start}`);
-        const endDate = new Date(`${now.getFullYear()}-${end}`);
-
-        if (startDate <= now && now <= endDate) {
-            selectedVideo = video;
-            break;
-        }
-    }
-
-    const newVideoSrc = basePath + selectedVideo;
-
-    if (!videoElement.src.includes(newVideoSrc)) {
-        videoElement.src = newVideoSrc;
+    // Verifica se o vídeo atual já é o correto para evitar recarregamentos desnecessários
+    if (!videoElement.src.includes(novoVideoSrc)) {
+        videoElement.src = novoVideoSrc;
         videoElement.load();
     }
 }
 
-function updateText() {
-    const now = new Date();
-    const textElement = document.getElementById('text-content');
+function atualizarTexto() {
+    const agora = new Date();
+    const elementoTexto = document.getElementById('text-content');
 
-    if (now.getDate() === 22) {
-        textElement.innerHTML = '<p>Você é incrível ❤️</p>';
+    if (agora.getDate() === 22) {
+        elementoTexto.innerHTML = '<p>Você é incrível ❤️</p>';
     } else {
-        textElement.innerHTML = '<p>Organizando...</p>';
+        elementoTexto.innerHTML = '<p>Organizando...</p>';
     }
 }
 
 setInterval(() => {
-    updateCounters();
-    updateVideo();
-    updateText();
+    atualizarContadores();
+    atualizarVideo();
+    atualizarTexto();
 }, 1000);
