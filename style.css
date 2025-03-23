@@ -1,3 +1,46 @@
+/* Reset global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Fundo romântico */
+body {
+    font-family: 'Dancing Script', cursive;
+    text-align: center;
+    background: linear-gradient(to right, #ff758c, #ff7eb3);
+    color: white;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Container central */
+.container {
+    text-align: center;
+    padding: 20px;
+}
+
+/* Estilo do contador */
+.counter {
+    font-size: 70px;
+    font-weight: bold;
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease-in-out;
+}
+
+/* Contador secundário */
+.second-counter {
+    font-size: 35px;
+    margin-top: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Texto romântico */
 .romantic-text {
     font-size: 28px;
     font-weight: bold;
