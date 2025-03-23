@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Contador de Relacionamento</title>
-    
-    <!-- Fontes manuscritas sofisticadas -->
+
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
-    
+
     <style>
         * {
             margin: 0;
@@ -25,10 +24,9 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            padding-top: 50px; /* Move os elementos um pouco para cima */
+            padding-top: 50px;
         }
 
-        /* Contador maior e mais destacado */
         .counter {
             font-size: 100px;
             font-weight: bold;
@@ -36,30 +34,51 @@
             text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
         }
 
-        /* Contagem regressiva mais elegante */
         .second-counter {
-            font-size: 50px;
-            margin-top: 20px;
-            font-family: 'Dancing Script', cursive;
+            font-size: 40px;
+            margin-top: 10px;
             transition: all 0.3s ease-in-out;
         }
 
-        /* Texto romântico */
         .romantic-text {
-            font-size: 28px;
+            font-size: 24px;
             font-style: italic;
-            margin-top: 30px;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
+            margin-top: 20px;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .counter {
+                font-size: 70px;
+            }
+            .second-counter {
+                font-size: 30px;
+            }
+            .romantic-text {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .counter {
+                font-size: 50px;
+            }
+            .second-counter {
+                font-size: 24px;
+            }
+            .romantic-text {
+                font-size: 18px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Contador de Relacionamento -->
-    <div id="counter" class="counter"></div>
-    <div class="second-counter">Faltam <span id="second-counter"></span> até o próximo mês</div>
-    <p id="romantic-text" class="romantic-text"></p>
+    <div>
+        <div id="counter" class="counter"></div>
+        <div class="second-counter">Faltam <span id="second-counter"></span> até o próximo mês</div>
+        <p id="romantic-text" class="romantic-text"></p>
+    </div>
 
     <script>
         const inicioRelacionamento = new Date('2024-08-22T21:20:00');
@@ -93,42 +112,29 @@
             document.getElementById('second-counter').innerText = `${dias}d ${horas}h ${minutos}m ${segundos}s`;
         }
 
-        function carregarTextosRomanticos(callback) {
-            fetch('textos.json')
-                .then(response => response.json())
-                .then(data => {
-                    callback(data.textos);
-                })
-                .catch(error => console.error("Erro ao carregar os textos:", error));
-        }
-
-        function atualizarTextoRomantico(data) {
+        function carregarTextoRomantico() {
+            const agora = new Date();
             const elementoTexto = document.getElementById('romantic-text');
-            const diaAtual = data.getDate();
-            const mesAtual = data.getMonth();
-            const anoAtual = data.getFullYear();
 
-            if (diaAtual === 22) {
-                carregarTextosRomanticos((textos) => {
-                    let textoSalvo = localStorage.getItem(`romantic-text-${mesAtual}-${anoAtual}`);
-
-                    if (!textoSalvo) {
-                        textoSalvo = textos[Math.floor(Math.random() * textos.length)];
-                        localStorage.setItem(`romantic-text-${mesAtual}-${anoAtual}`, textoSalvo);
-                    }
-
-                    elementoTexto.innerText = textoSalvo;
-                    elementoTexto.style.opacity = "1";
-                });
+            if (agora.getDate() === 22) {
+                fetch('dados.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        const textos = data.textos;
+                        const textoAleatorio = textos[Math.floor(Math.random() * textos.length)];
+                        elementoTexto.innerText = textoAleatorio;
+                        elementoTexto.style.display = "block";
+                    })
+                    .catch(() => console.error("Erro ao carregar os textos românticos."));
             } else {
-                elementoTexto.style.opacity = "0";
-                setTimeout(() => {
-                    elementoTexto.innerText = "";
-                }, 500);
+                elementoTexto.style.display = "none";
             }
         }
 
-        setInterval(atualizarContadores, 1000);
+        setInterval(() => {
+            atualizarContadores();
+            carregarTextoRomantico();
+        }, 1000);
     </script>
 
 </body>
