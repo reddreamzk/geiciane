@@ -1,8 +1,7 @@
+
 document.addEventListener("DOMContentLoaded", () => {
     const inicioRelacionamento = new Date('2024-08-22T21:20:00');
-    const textContent = document.createElement("p"); 
-    textContent.classList.add("romantic-text"); 
-    document.body.appendChild(textContent);
+    const textContent = document.getElementById("text-content");
 
     function calcularMesesExatos(dataInicio, dataAtual) {
         let meses = (dataAtual.getFullYear() - dataInicio.getFullYear()) * 12 + (dataAtual.getMonth() - dataInicio.getMonth());
