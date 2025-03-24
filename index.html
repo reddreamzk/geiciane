@@ -16,125 +16,151 @@
 
         body {
             font-family: 'Great Vibes', cursive;
-            text-align: center;
             background: linear-gradient(to right, #ff758c, #ff7eb3);
             color: white;
-            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
-            padding-top: 50px;
+            height: 100vh;
+            padding: 20px;
         }
 
-        .counter {
-            font-size: 100px;
-            font-weight: bold;
-            transition: all 0.3s ease-in-out;
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            width: 90%;
+            max-width: 600px;
         }
 
-        .second-counter {
-            font-size: 40px;
-            margin-top: 10px;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .romantic-text {
+        .tile {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
             font-size: 24px;
-            font-style: italic;
-            margin-top: 20px;
-            display: none;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            transition: transform 0.2s;
+        }
+
+        .tile:hover {
+            transform: scale(1.05);
+        }
+
+        .tile.large {
+            grid-column: span 2;
+            grid-row: span 2;
+            font-size: 28px;
+        }
+
+        .tile.small {
+            font-size: 20px;
+        }
+
+        .gallery {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
         }
 
         @media (max-width: 768px) {
-            .counter {
-                font-size: 70px;
-            }
-            .second-counter {
-                font-size: 30px;
-            }
-            .romantic-text {
-                font-size: 20px;
+            .grid-container {
+                grid-template-columns: repeat(3, 1fr);
             }
         }
 
         @media (max-width: 480px) {
-            .counter {
-                font-size: 50px;
-            }
-            .second-counter {
-                font-size: 24px;
-            }
-            .romantic-text {
-                font-size: 18px;
+            .grid-container {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
 </head>
 <body>
 
-    <div>
-        <div id="counter" class="counter"></div>
-        <div class="second-counter">Faltam <span id="second-counter"></span> até o próximo mês</div>
-        <p id="romantic-text" class="romantic-text"></p>
+    <div class="grid-container">
+        <div class="tile small" id="counter">0 meses</div>
+        <div class="tile small" id="second-counter">Faltam 0 dias</div>
+        <div class="tile small" id="third-counter">0 horas</div>
+        <div class="tile small" id="fourth-counter">0 minutos</div>
+        <div class="tile large gallery">
+            <img id="gallery-img" src="https://via.placeholder.com/200" alt="Galeria">
+        </div>
+        <div class="tile large" id="romantic-text">💖 Mensagem Especial 💖</div>
     </div>
 
     <script>
         const inicioRelacionamento = new Date('2024-08-22T21:20:00');
+        const imagensGaleria = [
+            "https://via.placeholder.com/200/ff758c",
+            "https://via.placeholder.com/200/ff7eb3",
+            "https://via.placeholder.com/200/ff91a4"
+        ];
 
-        function calcularMesesExatos(dataInicio, dataAtual) {
+        function calcularDiferenca(dataInicio, dataAtual) {
             let meses = (dataAtual.getFullYear() - dataInicio.getFullYear()) * 12 + (dataAtual.getMonth() - dataInicio.getMonth());
-            if (dataAtual.getDate() < dataInicio.getDate()) {
-                meses--;
-            }
-            return meses;
-        }
+            if (dataAtual.getDate() < dataInicio.getDate()) meses--;
 
-        function calcularProximoAniversario(dataInicio, meses) {
             const proximoAniversario = new Date(dataInicio);
-            proximoAniversario.setMonth(dataInicio.getMonth() + meses);
-            return proximoAniversario;
-        }
+            proximoAniversario.setMonth(dataInicio.getMonth() + meses + 1);
 
-        function atualizarContadores() {
-            const agora = new Date();
-            const mesesRelacionamento = calcularMesesExatos(inicioRelacionamento, agora);
-            const proximoAniversario = calcularProximoAniversario(inicioRelacionamento, mesesRelacionamento + 1);
-
-            const diferencaTempo = proximoAniversario - agora;
+            const diferencaTempo = proximoAniversario - dataAtual;
             const dias = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24));
             const horas = Math.floor((diferencaTempo % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutos = Math.floor((diferencaTempo % (1000 * 60 * 60)) / (1000 * 60));
-            const segundos = Math.floor((diferencaTempo % (1000 * 60)) / 1000);
 
-            document.getElementById('counter').innerText = `${mesesRelacionamento} meses`;
-            document.getElementById('second-counter').innerText = `${dias}d ${horas}h ${minutos}m ${segundos}s`;
+            document.getElementById('counter').innerText = `${meses} meses`;
+            document.getElementById('second-counter').innerText = `Faltam ${dias} dias`;
+            document.getElementById('third-counter').innerText = `${horas} horas`;
+            document.getElementById('fourth-counter').innerText = `${minutos} minutos`;
+        }
+
+        function alternarImagensGaleria() {
+            let index = 0;
+            setInterval(() => {
+                const img = document.getElementById('gallery-img');
+                img.style.opacity = 0;
+                setTimeout(() => {
+                    img.src = imagensGaleria[index];
+                    img.style.opacity = 1;
+                    index = (index + 1) % imagensGaleria.length;
+                }, 500);
+            }, 3000);
         }
 
         function carregarTextoRomantico() {
-            const agora = new Date();
-            const elementoTexto = document.getElementById('romantic-text');
-
-            if (agora.getDate() === 22) {
-                fetch('dados.json')
-                    .then(response => response.json())
-                    .then(data => {
-                        const textos = data.textos;
-                        const textoAleatorio = textos[Math.floor(Math.random() * textos.length)];
-                        elementoTexto.innerText = textoAleatorio;
-                        elementoTexto.style.display = "block";
-                    })
-                    .catch(() => console.error("Erro ao carregar os textos românticos."));
-            } else {
-                elementoTexto.style.display = "none";
-            }
+            fetch('dados.json')
+                .then(response => response.json())
+                .then(data => {
+                    const textos = data.textos;
+                    const textoAleatorio = textos[Math.floor(Math.random() * textos.length)];
+                    document.getElementById('romantic-text').innerText = textoAleatorio;
+                })
+                .catch(() => console.error("Erro ao carregar textos românticos."));
         }
 
         setInterval(() => {
-            atualizarContadores();
+            calcularDiferenca(inicioRelacionamento, new Date());
             carregarTextoRomantico();
         }, 1000);
+
+        alternarImagensGaleria();
     </script>
 
 </body>
