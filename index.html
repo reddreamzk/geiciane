@@ -38,7 +38,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            font-size: 24px;
+            font-size: 20px;
             font-weight: bold;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 10px;
@@ -53,11 +53,11 @@
         .tile.large {
             grid-column: span 2;
             grid-row: span 2;
-            font-size: 28px;
+            font-size: 24px;
         }
 
         .tile.small {
-            font-size: 20px;
+            font-size: 18px;
         }
 
         .gallery {
@@ -95,14 +95,20 @@
 <body>
 
     <div class="grid-container">
-        <div class="tile small" id="counter">0 meses</div>
-        <div class="tile small" id="second-counter">Faltam 0 dias</div>
-        <div class="tile small" id="third-counter">0 horas</div>
-        <div class="tile small" id="fourth-counter">0 minutos</div>
+        <!-- Bloco único para o contador -->
+        <div class="tile large" id="counter">0 meses, 0 dias, 0 horas, 0 minutos</div>
+        
+        <!-- Bloco separado para a galeria -->
         <div class="tile large gallery">
             <img id="gallery-img" src="https://via.placeholder.com/200" alt="Galeria">
         </div>
-        <div class="tile large" id="romantic-text">💖 Mensagem Especial 💖</div>
+
+        <!-- Blocos individuais para textos românticos -->
+        <div class="tile small" id="text1">💖 Texto 1 💖</div>
+        <div class="tile small" id="text2">💖 Texto 2 💖</div>
+        <div class="tile small" id="text3">💖 Texto 3 💖</div>
+        <div class="tile small" id="text4">💖 Texto 4 💖</div>
+        <div class="tile small" id="text5">💖 Texto 5 💖</div>
     </div>
 
     <script>
@@ -125,10 +131,7 @@
             const horas = Math.floor((diferencaTempo % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutos = Math.floor((diferencaTempo % (1000 * 60 * 60)) / (1000 * 60));
 
-            document.getElementById('counter').innerText = `${meses} meses`;
-            document.getElementById('second-counter').innerText = `Faltam ${dias} dias`;
-            document.getElementById('third-counter').innerText = `${horas} horas`;
-            document.getElementById('fourth-counter').innerText = `${minutos} minutos`;
+            document.getElementById('counter').innerText = `${meses} meses, ${dias} dias, ${horas} horas, ${minutos} minutos`;
         }
 
         function alternarImagensGaleria() {
@@ -144,20 +147,23 @@
             }, 3000);
         }
 
-        function carregarTextoRomantico() {
+        function carregarTextosRomanticos() {
             fetch('dados.json')
                 .then(response => response.json())
                 .then(data => {
                     const textos = data.textos;
-                    const textoAleatorio = textos[Math.floor(Math.random() * textos.length)];
-                    document.getElementById('romantic-text').innerText = textoAleatorio;
+                    document.getElementById('text1').innerText = textos[0] || "Texto 1 💖";
+                    document.getElementById('text2').innerText = textos[1] || "Texto 2 💖";
+                    document.getElementById('text3').innerText = textos[2] || "Texto 3 💖";
+                    document.getElementById('text4').innerText = textos[3] || "Texto 4 💖";
+                    document.getElementById('text5').innerText = textos[4] || "Texto 5 💖";
                 })
                 .catch(() => console.error("Erro ao carregar textos românticos."));
         }
 
         setInterval(() => {
             calcularDiferenca(inicioRelacionamento, new Date());
-            carregarTextoRomantico();
+            carregarTextosRomanticos();
         }, 1000);
 
         alternarImagensGaleria();
