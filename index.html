@@ -1374,7 +1374,7 @@
     </div>
 
     <script>
-        // Inicialização das animações
+       
         onload = () => {
             const c = setTimeout(() => {
                 document.body.classList.remove("not-loaded");
@@ -1382,23 +1382,8 @@
             }, 1000);
         };
 
-        // Contador romântico
+       
         const inicioRelacionamento = new Date('2024-08-22T21:20:00');
-        
-        // Textos românticos (substitua por um fetch para dados.json se preferir)
-        const textosRomanticos = [
-            "Cada dia ao seu lado é um presente que eu guardo no coração.",
-            "Você é a razão do meu sorriso todas as manhãs.",
-            "Nosso amor é a história mais bonita que eu já vivi.",
-            "Em um mundo de tantas pessoas, eu encontrei você. O meu grande amor.",
-            "Você transformou meus dias comuns em momentos especiais.",
-            "A cada mês que passa, meu amor por você só cresce.",
-            "Você é o sonho que eu nunca quis acordar.",
-            "Nossos meses juntos são apenas o começo da nossa eternidade.",
-            "Obrigado por ser a pessoa que me faz acreditar no amor todos os dias.",
-            "Cada momento ao seu lado vale mais que mil estrelas no céu."
-        ];
-
         function calcularMesesExatos(dataInicio, dataAtual) {
             let meses = (dataAtual.getFullYear() - dataInicio.getFullYear()) * 12 + (dataAtual.getMonth() - dataInicio.getMonth());
             if (dataAtual.getDate() < dataInicio.getDate()) {
@@ -1429,25 +1414,37 @@
         }
 
         function carregarTextoRomantico() {
-            const agora = new Date();
-            const elementoTexto = document.getElementById('romantic-text');
+  const agora = new Date();
+  const elementoTexto = document.getElementById('romantic-text');
 
-            if (agora.getDate() === 22) {
-                // Usando os textos locais em vez de fetch para dados.json
-                const textoAleatorio = textosRomanticos[Math.floor(Math.random() * textosRomanticos.length)];
-                elementoTexto.innerText = textoAleatorio;
-                elementoTexto.style.display = "block";
-            } else {
-                elementoTexto.style.display = "none";
-            }
+  if (agora.getDate() === 22) {
+    fetch('dados.json')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Erro ao carregar os textos");
         }
-
+        return response.json();
+      })
+      .then(data => {
+        const textos = data.textos;
+        const textoAleatorio = textos[Math.floor(Math.random() * textos.length)];
+        elementoTexto.innerText = textoAleatorio;
+        elementoTexto.style.display = "block";
+      })
+      .catch(error => {
+        console.error("Erro:", error);
+        elementoTexto.innerText = "Te amo mais que tudo! ❤️"; 
+        elementoTexto.style.display = "block";
+      });
+  } else {
+    elementoTexto.style.display = "none";
+  }
+}
         setInterval(() => {
             atualizarContadores();
             carregarTextoRomantico();
         }, 1000);
 
-        // Inicializa os contadores imediatamente
         atualizarContadores();
         carregarTextoRomantico();
     </script>
